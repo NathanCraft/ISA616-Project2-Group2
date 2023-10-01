@@ -8,6 +8,15 @@ Annually, the FSB conducts a senior survey of graduates to learn of their employ
 
 The data are anonymized, however it is possible that if you look hard enough, you can identify students.  You are bound, ethically not to do so.  It is a strict ethical code that you will not discuss individual data points with ANYONE except for me and your team.  Failure to comply with this code of ethics will result in a failing grade in the course.  
 
+## Project Goals
+The goal of this project is for Nathan Craft and Elle Prusko to answer the question: "What are the macro placement and salary trends we are seeing over the past three years?". To do so, we have identified potential pains for our audience. Such pains consist of 
+- Lack of information to better guide students down the right career path 
+- Finding students high-paying jobs that fit their major
+- Deeper understanding of salary trends by industry
+- Limited staffing to allocate sufficient time to each student’s needs
+
+To eliminate these pains, we intend to pilot an FSB Placement Analysis where we will visualize and understand salary and placement trends. We will also do external research of salary trends in related industries, and deliver a soundbite of key findings and data-driven recommendations.
+
 ## Data Sources
 
 You have three years of data representing FSB graduates, including graduates in 2019, 2020, and 2021.  The dataset provided had 42 variables.  The source is either derived by me during data cleaning/merging, from the Oracle Business Intelligence Enterprise Edition (OBIEE) maintained by Miami adminsitration, or from the self reported senior survey.  I have cleaned and merged the files into one file.  
