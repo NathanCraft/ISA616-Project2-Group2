@@ -1,6 +1,6 @@
 ---
 title: "Cleaning the Combined BI And Survey Career Data"
-author: "Your Name Here"
+author: "Nathan Craft and Elle Prusko"
 output:
   html_document:
     date: "`r format(Sys.time(), '%d %B, %Y')`"
@@ -27,7 +27,15 @@ pacman::p_load(DataExplorer,tidyverse,readxl,zoo,stargazer,kableExtra,skimr,plot
 
 # Introduction and Purpose
 
-Write something here
+The goal of this project is for Nathan Craft and Elle Prusko to answer the question: "What are the macro placement and salary trends we are seeing over the past three years?". To do so, we have identified potential pains for our audience. Such pains consist of:
+
+- Lack of information to better guide students down the right career path
+- Finding students high-paying jobs that fit their major
+- Deeper understanding of salary trends by industry
+- Limited staffing to allocate sufficient time to each student’s needs
+
+
+To eliminate these pains, we intend to pilot an FSB Placement Analysis where we will visualize and understand salary and placement trends. We will also do external research of salary trends in related industries, and deliver a soundbite of key findings and data-driven recommendations.
 
 # Data Sources
 
@@ -41,7 +49,7 @@ data=readRDS(file = "FSB_BI_Survey_2019_2021.rds")
 
 # Data Preprocessing
 
-Describing each data preprocessing step with small chunks of code, output where necessary, and documentation
+We have data from 3 years of graduates, 2019 - 2021, representing their results from surveys on their career placement results once they left college.
 
 # The rest of your document
 
