@@ -67,6 +67,102 @@ Key Takeaways:
 - Major and Minor are structured and clean with no values missing. There are no redundant major or minor listings, so these columns do not need further cleaning.
 - There are a small amount of double majors that need to be properly represented so 
 - The survey columns focusing on job placement and salary have ~50% of their values missing, indicating that they did not place. To simplify this in the future we will create a binary column to represent either being placed or not being placed.
+- Column names sometimes have spaces, we will rename these to have underscores instead to make the data set easier to work with
+
+```{r}
+head(data)
+```
+Key Takeaways:
+- The head of the data reveals there are many columns unnecessary for our analysis.
+- In our analysis we need the year, the majors, the post graduation plans to determine placement, and salary columns (nmajor, major1, major2, year.x, survey_plans, survey_salary)
+-Other columns can be dropped (BBRJ, Business Direct Admit, Combined Bacc and Masters, Dean's List, First Generation College Stdnt, FSB Scholars, Honor's Program, President's List, Study Abroad Courtesy Account, Transfer Work (Pre-Banner), Cum Laude, Magna Cum Laude, Summa Cum Laude, University Honors, UniversityHonors w/Distinction, minor1, minor2, IPEDS.Race.Ethnicity, Gender, GPA.Range, Term.Code, latin_honors, survey_city, survey_company, survey_deptfunc, survey_gradprogram, survey_gradschool, survey_internfour, survey_internone, survey_internships, survey_internthree, survey_interntwo, survey_offers, survey_pref_field, survey_pref_loc, survey_state)
+- From the survey_plans column we can create a binary field for if the graduate placed or not, then we can drop survey_plans
+
+
+## To Dos
+- Removing spaces from column names
+- Create binary variable based on survey_plans to determine if the student placed or not
+- Drop unnecessary columns
+- Ensure data integrity of columns being retained
+
+## Remove spaces from column names
+
+```{r}
+names(data)[names(data) == "Business Direct Admit"] <- "Business_Direct_Admit"
+names(data)[names(data) == "FSB Scholars"] <- "FSB_Scholars"
+names(data)[names(data) == "Transfer Work (Pre-Banner)"] <- "Transfer_Work"
+names(data)[names(data) == "University Honors"] <- "University_Honors"
+names(data)[names(data) == "Combined Bacc and Masters"] <- "Combined_Bacc_and_Masters"
+names(data)[names(data) == "Honors Program"] <- "Honors_Program"
+names(data)[names(data) == "Cum Laude"] <- "Cum_Laude"
+names(data)[names(data) == "UniversityHonors w/Distinction"] <- "UniversityHonors_Distinction"
+names(data)[names(data) == "Dean's List"] <- "Deans_List"
+names(data)[names(data) == "President's List"] <- "President_List"
+names(data)[names(data) == "Magna Cum Laude"] <- "Magna_Cum_Laude"
+names(data)[names(data) == "First Generation College Stdnt"] <- "First_Gen_College_Stdnt"
+names(data)[names(data) == "Study Abroad Courtesy Account"] <- "Study_Abroad_Courtesy_Account"
+names(data)[names(data) == "Summa Cum Laude"] <- "Summa_Cum_Laude"
+```
+
+```{r}
+head(data)
+```
+
+## Creating and Removing Columns
+
+In this chunk we create a binary field to represent which graduates placed into a job. N/A values were considered to not have placed into a job. This is because for analyzing placement trends we do not need to consider any granularity besides whether or not they placed. Where they placed or what alternate plans they had were not important for addressing the pains this analysis is focused on.
+
+```{r}
+data$placement = ifelse(data$survey_plan == "accepted fulltime job", 1, 0)
+data$placement[is.na(data$placement)] <- 0
+```
+
+In the following chunk we drop the columns that are not relevant to the pains we are addressing.
+
+```{r}
+data = subset(data, select = -Business_Direct_Admit)
+data = subset(data, select = -BBRJ)
+data = subset(data, select = -Combined_Bacc_and_Masters)
+data = subset(data, select = -Deans_List)
+data = subset(data, select = -First_Gen_College_Stdnt)
+data = subset(data, select = -FSB_Scholars)
+data = subset(data, select = -Honors_Program)
+data = subset(data, select = -President_List)
+data = subset(data, select = -Study_Abroad_Courtesy_Account)
+data = subset(data, select = -Transfer_Work)
+data = subset(data, select = -Cum_Laude)
+data = subset(data, select = -Magna_Cum_Laude)
+data = subset(data, select = -Summa_Cum_Laude)
+data = subset(data, select = -University_Honors)
+data = subset(data, select = -UniversityHonors_Distinction)
+data = subset(data, select = -minor1)
+data = subset(data, select = -minor2)
+data = subset(data, select = -IPEDS.Race.Ethnicity)
+data = subset(data, select = -Gender)
+data = subset(data, select = -GPA.Range)
+data = subset(data, select = -Term.Code)
+data = subset(data, select = -latin_honors)
+data = subset(data, select = -survey_city)
+data = subset(data, select = -survey_company)
+data = subset(data, select = -survey_deptfunc)
+data = subset(data, select = -survey_gradschool)
+data = subset(data, select = -survey_internfour)
+data = subset(data, select = -survey_internone)
+data = subset(data, select = -survey_internships)
+data = subset(data, select = -survey_internthree)
+data = subset(data, select = -survey_interntwo)
+data = subset(data, select = -survey_offers)
+data = subset(data, select = -survey_pref_field)
+data = subset(data, select = -survey_pref_loc)
+data = subset(data, select = -survey_state)
+data = subset(data, select = -survey_plans)
+```
+
+## Re-evaluating the data
+
+```{r}
+skim(data)
+```
 
 ```{r}
 head(data)
@@ -74,24 +170,13 @@ head(data)
 
 
 
-## To Dos
-- Establish which columns we need for our analysis
-- Drop unnecessary columns
-- Create column for 1 = placed in a job, 0 = did not place
-- Ensure data integrity of columns we are keeping
-
-```{r}
-skim(data)
-```
-
-```{r}
-summary(data$survey_salary)
-```
-
-
-
-
-
 # The rest of your document
 
 Add sections and subsections as necessary to guide your analysis
+
+# Computing Environment
+
+```{r}
+sessionInfo()
+```
+

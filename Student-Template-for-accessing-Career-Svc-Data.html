@@ -4330,22 +4330,120 @@ double majors that need to be properly represented so - The survey
 columns focusing on job placement and salary have ~50% of their values
 missing, indicating that they did not place. To simplify this in the
 future we will create a binary column to represent either being placed
-or not being placed.</p>
+or not being placed. - Column names sometimes have spaces, we will
+rename these to have underscores instead to make the data set easier to
+work with</p>
 <pre class="r"><code>head(data)</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["nmajor"],"name":[1],"type":["int"],"align":["right"]},{"label":["major1"],"name":[2],"type":["fct"],"align":["left"]},{"label":["major2"],"name":[3],"type":["fct"],"align":["left"]},{"label":["BBRJ"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Business Direct Admit"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Combined Bacc and Masters"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["Dean's List"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["First Generation College Stdnt"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["FSB Scholars"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["Honors Program"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["President's List"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["Study Abroad Courtesy Account"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["Transfer Work (Pre-Banner)"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["Cum Laude"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["Magna Cum Laude"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["Summa Cum Laude"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["University Honors"],"name":[17],"type":["dbl"],"align":["right"]},{"label":["UniversityHonors w/Distinction"],"name":[18],"type":["dbl"],"align":["right"]},{"label":["minor1"],"name":[19],"type":["fct"],"align":["left"]},{"label":["minor2"],"name":[20],"type":["fct"],"align":["left"]},{"label":["IPEDS.Race.Ethnicity"],"name":[21],"type":["chr"],"align":["left"]},{"label":["Gender"],"name":[22],"type":["chr"],"align":["left"]},{"label":["GPA.Range"],"name":[23],"type":["chr"],"align":["left"]},{"label":["Term.Code"],"name":[24],"type":["int"],"align":["right"]},{"label":["year.x"],"name":[25],"type":["chr"],"align":["left"]},{"label":["latin_honors"],"name":[26],"type":["chr"],"align":["left"]},{"label":["survey_city"],"name":[27],"type":["chr"],"align":["left"]},{"label":["survey_company"],"name":[28],"type":["chr"],"align":["left"]},{"label":["survey_deptfunc"],"name":[29],"type":["chr"],"align":["left"]},{"label":["survey_gradprogram"],"name":[30],"type":["chr"],"align":["left"]},{"label":["survey_gradschool"],"name":[31],"type":["chr"],"align":["left"]},{"label":["survey_internfour"],"name":[32],"type":["chr"],"align":["left"]},{"label":["survey_internone"],"name":[33],"type":["chr"],"align":["left"]},{"label":["survey_internships"],"name":[34],"type":["chr"],"align":["left"]},{"label":["survey_internthree"],"name":[35],"type":["chr"],"align":["left"]},{"label":["survey_interntwo"],"name":[36],"type":["chr"],"align":["left"]},{"label":["survey_offers"],"name":[37],"type":["chr"],"align":["left"]},{"label":["survey_plans"],"name":[38],"type":["chr"],"align":["left"]},{"label":["survey_pref_field"],"name":[39],"type":["chr"],"align":["left"]},{"label":["survey_pref_loc"],"name":[40],"type":["chr"],"align":["left"]},{"label":["survey_salary"],"name":[41],"type":["dbl"],"align":["right"]},{"label":["survey_state"],"name":[42],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"Marketing","3":"none","4":"0","5":"1","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"No Minor","20":"No Minor","21":"Hispanic/Latino","22":"Male","23":"2.00 - 2.49","24":"202015","25":"2020","26":"0","27":"NA","28":"NA","29":"NA","30":"NA","31":"NA","32":"NA","33":"NA","34":"NA","35":"NA","36":"NA","37":"NA","38":"seeking continuing education","39":"NA","40":"NA","41":"NA","42":"NA","_rn_":"1"},{"1":"1","2":"Finance","3":"none","4":"0","5":"1","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"Business Legal Studies","20":"No Minor","21":"White","22":"Male","23":"3.00 - 3.49","24":"201920","25":"2019","26":"0","27":"Toledo","28":"BAM Nutual","29":"Finance","30":"NA","31":"NA","32":"NA","33":"NA","34":"0","35":"NA","36":"NA","37":"0","38":"accepted fulltime job","39":"Yes","40":"Yes","41":"NA","42":"Ohio","_rn_":"2"},{"1":"1","2":"Marketing","3":"none","4":"0","5":"1","6":"0","7":"1","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"1","15":"0","16":"0","17":"0","18":"0","19":"Humanities","20":"Humanities","21":"Asian","22":"Female","23":"3.50 - 4.00","24":"202120","25":"2021","26":"0","27":"Columbus","28":"CoHatch","29":"General Management","30":"NA","31":"NA","32":"NA","33":"Second Time Founders","34":"2","35":"NA","36":"La Soupe","37":"1","38":"accepted fulltime job","39":"Yes","40":"Yes","41":"40000","42":"OH","_rn_":"3"},{"1":"1","2":"Finance","3":"none","4":"0","5":"1","6":"0","7":"0","8":"1","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"Accountancy","20":"Accountancy","21":"White","22":"Male","23":"3.00 - 3.49","24":"202020","25":"2020","26":"0","27":"NA","28":"PwC","29":"NA","30":"NA","31":"NA","32":"NA","33":"Bauer Hockey","34":"2","35":"NA","36":"IHS Markit","37":"NA","38":"accepted fulltime job","39":"NA","40":"NA","41":"NA","42":"NA","_rn_":"4"},{"1":"1","2":"Marketing","3":"none","4":"0","5":"1","6":"0","7":"1","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"Supply Chain Management","20":"Supply Chain Management","21":"White","22":"Male","23":"3.00 - 3.49","24":"201920","25":"2019","26":"0","27":"Columbus","28":"Abercrombie & Fitch","29":"General Management","30":"NA","31":"NA","32":"NA","33":"Nouveau Vie, LLC.","34":"2","35":"NA","36":"Abercrombie & Fitch","37":"1","38":"accepted fulltime job","39":"Yes","40":"Yes","41":"63500","42":"Ohio","_rn_":"5"},{"1":"1","2":"Marketing","3":"none","4":"0","5":"1","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"1","14":"0","15":"0","16":"0","17":"0","18":"0","19":"Humanities","20":"Humanities","21":"White","22":"Female","23":"3.00 - 3.49","24":"202020","25":"2020","26":"0","27":"Cleveland","28":"McDonald's","29":"Consulting Marketing / Sales Operations / Procurement","30":"NA","31":"NA","32":"Victoria's Secret","33":"CNN / Turner Broadcasting","34":"4","35":"Oxford Medical Aesthetics and Laser","36":"Hylant","37":"4","38":"accepted fulltime job","39":"Yes","40":"Yes","41":"68000","42":"OH","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
+<p>Key Takeaways: - The head of the data reveals there are many columns
+unnecessary for our analysis. - In our analysis we need the year, the
+majors, the post graduation plans to determine placement, and salary
+columns (nmajor, major1, major2, year.x, survey_plans, survey_salary)
+-Other columns can be dropped (BBRJ, Business Direct Admit, Combined
+Bacc and Masters, Dean’s List, First Generation College Stdnt, FSB
+Scholars, Honor’s Program, President’s List, Study Abroad Courtesy
+Account, Transfer Work (Pre-Banner), Cum Laude, Magna Cum Laude, Summa
+Cum Laude, University Honors, UniversityHonors w/Distinction, minor1,
+minor2, IPEDS.Race.Ethnicity, Gender, GPA.Range, Term.Code,
+latin_honors, survey_city, survey_company, survey_deptfunc,
+survey_gradprogram, survey_gradschool, survey_internfour,
+survey_internone, survey_internships, survey_internthree,
+survey_interntwo, survey_offers, survey_pref_field, survey_pref_loc,
+survey_state) - From the survey_plans column we can create a binary
+field for if the graduate placed or not, then we can drop
+survey_plans</p>
 </div>
 <div id="to-dos" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> To Dos</h2>
 <ul>
-<li>Establish which columns we need for our analysis</li>
+<li>Removing spaces from column names</li>
+<li>Create binary variable based on survey_plans to determine if the
+student placed or not</li>
 <li>Drop unnecessary columns</li>
-<li>Create column for 1 = placed in a job, 0 = did not place</li>
-<li>Ensure data integrity of columns we are keeping</li>
+<li>Ensure data integrity of columns being retained</li>
 </ul>
+</div>
+<div id="remove-spaces-from-column-names" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Remove spaces from
+column names</h2>
+<pre class="r"><code>names(data)[names(data) == &quot;Business Direct Admit&quot;] &lt;- &quot;Business_Direct_Admit&quot;
+names(data)[names(data) == &quot;FSB Scholars&quot;] &lt;- &quot;FSB_Scholars&quot;
+names(data)[names(data) == &quot;Transfer Work (Pre-Banner)&quot;] &lt;- &quot;Transfer_Work&quot;
+names(data)[names(data) == &quot;University Honors&quot;] &lt;- &quot;University_Honors&quot;
+names(data)[names(data) == &quot;Combined Bacc and Masters&quot;] &lt;- &quot;Combined_Bacc_and_Masters&quot;
+names(data)[names(data) == &quot;Honors Program&quot;] &lt;- &quot;Honors_Program&quot;
+names(data)[names(data) == &quot;Cum Laude&quot;] &lt;- &quot;Cum_Laude&quot;
+names(data)[names(data) == &quot;UniversityHonors w/Distinction&quot;] &lt;- &quot;UniversityHonors_Distinction&quot;
+names(data)[names(data) == &quot;Dean&#39;s List&quot;] &lt;- &quot;Deans_List&quot;
+names(data)[names(data) == &quot;President&#39;s List&quot;] &lt;- &quot;President_List&quot;
+names(data)[names(data) == &quot;Magna Cum Laude&quot;] &lt;- &quot;Magna_Cum_Laude&quot;
+names(data)[names(data) == &quot;First Generation College Stdnt&quot;] &lt;- &quot;First_Gen_College_Stdnt&quot;
+names(data)[names(data) == &quot;Study Abroad Courtesy Account&quot;] &lt;- &quot;Study_Abroad_Courtesy_Account&quot;
+names(data)[names(data) == &quot;Summa Cum Laude&quot;] &lt;- &quot;Summa_Cum_Laude&quot;</code></pre>
+<pre class="r"><code>head(data)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["nmajor"],"name":[1],"type":["int"],"align":["right"]},{"label":["major1"],"name":[2],"type":["fct"],"align":["left"]},{"label":["major2"],"name":[3],"type":["fct"],"align":["left"]},{"label":["BBRJ"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["Business_Direct_Admit"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["Combined_Bacc_and_Masters"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["Deans_List"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["First_Gen_College_Stdnt"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["FSB_Scholars"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["Honors_Program"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["President_List"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["Study_Abroad_Courtesy_Account"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["Transfer_Work"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["Cum_Laude"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["Magna_Cum_Laude"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["Summa_Cum_Laude"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["University_Honors"],"name":[17],"type":["dbl"],"align":["right"]},{"label":["UniversityHonors_Distinction"],"name":[18],"type":["dbl"],"align":["right"]},{"label":["minor1"],"name":[19],"type":["fct"],"align":["left"]},{"label":["minor2"],"name":[20],"type":["fct"],"align":["left"]},{"label":["IPEDS.Race.Ethnicity"],"name":[21],"type":["chr"],"align":["left"]},{"label":["Gender"],"name":[22],"type":["chr"],"align":["left"]},{"label":["GPA.Range"],"name":[23],"type":["chr"],"align":["left"]},{"label":["Term.Code"],"name":[24],"type":["int"],"align":["right"]},{"label":["year.x"],"name":[25],"type":["chr"],"align":["left"]},{"label":["latin_honors"],"name":[26],"type":["chr"],"align":["left"]},{"label":["survey_city"],"name":[27],"type":["chr"],"align":["left"]},{"label":["survey_company"],"name":[28],"type":["chr"],"align":["left"]},{"label":["survey_deptfunc"],"name":[29],"type":["chr"],"align":["left"]},{"label":["survey_gradprogram"],"name":[30],"type":["chr"],"align":["left"]},{"label":["survey_gradschool"],"name":[31],"type":["chr"],"align":["left"]},{"label":["survey_internfour"],"name":[32],"type":["chr"],"align":["left"]},{"label":["survey_internone"],"name":[33],"type":["chr"],"align":["left"]},{"label":["survey_internships"],"name":[34],"type":["chr"],"align":["left"]},{"label":["survey_internthree"],"name":[35],"type":["chr"],"align":["left"]},{"label":["survey_interntwo"],"name":[36],"type":["chr"],"align":["left"]},{"label":["survey_offers"],"name":[37],"type":["chr"],"align":["left"]},{"label":["survey_plans"],"name":[38],"type":["chr"],"align":["left"]},{"label":["survey_pref_field"],"name":[39],"type":["chr"],"align":["left"]},{"label":["survey_pref_loc"],"name":[40],"type":["chr"],"align":["left"]},{"label":["survey_salary"],"name":[41],"type":["dbl"],"align":["right"]},{"label":["survey_state"],"name":[42],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"Marketing","3":"none","4":"0","5":"1","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"No Minor","20":"No Minor","21":"Hispanic/Latino","22":"Male","23":"2.00 - 2.49","24":"202015","25":"2020","26":"0","27":"NA","28":"NA","29":"NA","30":"NA","31":"NA","32":"NA","33":"NA","34":"NA","35":"NA","36":"NA","37":"NA","38":"seeking continuing education","39":"NA","40":"NA","41":"NA","42":"NA","_rn_":"1"},{"1":"1","2":"Finance","3":"none","4":"0","5":"1","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"Business Legal Studies","20":"No Minor","21":"White","22":"Male","23":"3.00 - 3.49","24":"201920","25":"2019","26":"0","27":"Toledo","28":"BAM Nutual","29":"Finance","30":"NA","31":"NA","32":"NA","33":"NA","34":"0","35":"NA","36":"NA","37":"0","38":"accepted fulltime job","39":"Yes","40":"Yes","41":"NA","42":"Ohio","_rn_":"2"},{"1":"1","2":"Marketing","3":"none","4":"0","5":"1","6":"0","7":"1","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"1","15":"0","16":"0","17":"0","18":"0","19":"Humanities","20":"Humanities","21":"Asian","22":"Female","23":"3.50 - 4.00","24":"202120","25":"2021","26":"0","27":"Columbus","28":"CoHatch","29":"General Management","30":"NA","31":"NA","32":"NA","33":"Second Time Founders","34":"2","35":"NA","36":"La Soupe","37":"1","38":"accepted fulltime job","39":"Yes","40":"Yes","41":"40000","42":"OH","_rn_":"3"},{"1":"1","2":"Finance","3":"none","4":"0","5":"1","6":"0","7":"0","8":"1","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"Accountancy","20":"Accountancy","21":"White","22":"Male","23":"3.00 - 3.49","24":"202020","25":"2020","26":"0","27":"NA","28":"PwC","29":"NA","30":"NA","31":"NA","32":"NA","33":"Bauer Hockey","34":"2","35":"NA","36":"IHS Markit","37":"NA","38":"accepted fulltime job","39":"NA","40":"NA","41":"NA","42":"NA","_rn_":"4"},{"1":"1","2":"Marketing","3":"none","4":"0","5":"1","6":"0","7":"1","8":"0","9":"0","10":"0","11":"0","12":"0","13":"0","14":"0","15":"0","16":"0","17":"0","18":"0","19":"Supply Chain Management","20":"Supply Chain Management","21":"White","22":"Male","23":"3.00 - 3.49","24":"201920","25":"2019","26":"0","27":"Columbus","28":"Abercrombie & Fitch","29":"General Management","30":"NA","31":"NA","32":"NA","33":"Nouveau Vie, LLC.","34":"2","35":"NA","36":"Abercrombie & Fitch","37":"1","38":"accepted fulltime job","39":"Yes","40":"Yes","41":"63500","42":"Ohio","_rn_":"5"},{"1":"1","2":"Marketing","3":"none","4":"0","5":"1","6":"0","7":"0","8":"0","9":"0","10":"0","11":"0","12":"0","13":"1","14":"0","15":"0","16":"0","17":"0","18":"0","19":"Humanities","20":"Humanities","21":"White","22":"Female","23":"3.00 - 3.49","24":"202020","25":"2020","26":"0","27":"Cleveland","28":"McDonald's","29":"Consulting Marketing / Sales Operations / Procurement","30":"NA","31":"NA","32":"Victoria's Secret","33":"CNN / Turner Broadcasting","34":"4","35":"Oxford Medical Aesthetics and Laser","36":"Hylant","37":"4","38":"accepted fulltime job","39":"Yes","40":"Yes","41":"68000","42":"OH","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="creating-and-removing-columns" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Creating and Removing
+Columns</h2>
+<p>In this chunk we create a binary field to represent which graduates
+placed into a job. N/A values were considered to not have placed into a
+job. This is because for analyzing placement trends we do not need to
+consider any granularity besides whether or not they placed. Where they
+placed or what alternate plans they had were not important for
+addressing the pains this analysis is focused on.</p>
+<pre class="r"><code>data$placement = ifelse(data$survey_plan == &quot;accepted fulltime job&quot;, 1, 0)
+data$placement[is.na(data$placement)] &lt;- 0</code></pre>
+<p>In the following chunk we drop the columns that are not relevant to
+the pains we are addressing.</p>
+<pre class="r"><code>data = subset(data, select = -Business_Direct_Admit)
+data = subset(data, select = -BBRJ)
+data = subset(data, select = -Combined_Bacc_and_Masters)
+data = subset(data, select = -Deans_List)
+data = subset(data, select = -First_Gen_College_Stdnt)
+data = subset(data, select = -FSB_Scholars)
+data = subset(data, select = -Honors_Program)
+data = subset(data, select = -President_List)
+data = subset(data, select = -Study_Abroad_Courtesy_Account)
+data = subset(data, select = -Transfer_Work)
+data = subset(data, select = -Cum_Laude)
+data = subset(data, select = -Magna_Cum_Laude)
+data = subset(data, select = -Summa_Cum_Laude)
+data = subset(data, select = -University_Honors)
+data = subset(data, select = -UniversityHonors_Distinction)
+data = subset(data, select = -minor1)
+data = subset(data, select = -minor2)
+data = subset(data, select = -IPEDS.Race.Ethnicity)
+data = subset(data, select = -Gender)
+data = subset(data, select = -GPA.Range)
+data = subset(data, select = -Term.Code)
+data = subset(data, select = -latin_honors)
+data = subset(data, select = -survey_city)
+data = subset(data, select = -survey_company)
+data = subset(data, select = -survey_deptfunc)
+data = subset(data, select = -survey_gradschool)
+data = subset(data, select = -survey_internfour)
+data = subset(data, select = -survey_internone)
+data = subset(data, select = -survey_internships)
+data = subset(data, select = -survey_internthree)
+data = subset(data, select = -survey_interntwo)
+data = subset(data, select = -survey_offers)
+data = subset(data, select = -survey_pref_field)
+data = subset(data, select = -survey_pref_loc)
+data = subset(data, select = -survey_state)
+data = subset(data, select = -survey_plans)</code></pre>
+</div>
+<div id="re-evaluating-the-data" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Re-evaluating the
+data</h2>
 <pre class="r"><code>skim(data)</code></pre>
 <table style="width: auto;" class="table table-condensed">
 <caption>
@@ -4373,7 +4471,7 @@ Number of rows
 Number of columns
 </td>
 <td style="text-align:left;">
-42
+7
 </td>
 </tr>
 <tr>
@@ -4395,7 +4493,7 @@ Column type frequency:
 character
 </td>
 <td style="text-align:left;">
-20
+2
 </td>
 </tr>
 <tr>
@@ -4403,7 +4501,7 @@ character
 factor
 </td>
 <td style="text-align:left;">
-4
+2
 </td>
 </tr>
 <tr>
@@ -4411,7 +4509,7 @@ factor
 numeric
 </td>
 <td style="text-align:left;">
-18
+3
 </td>
 </tr>
 <tr>
@@ -4464,84 +4562,6 @@ whitespace
 <tbody>
 <tr>
 <td style="text-align:left;">
-IPEDS.Race.Ethnicity
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-32
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Gender
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-GPA.Range
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 year.x
 </td>
 <td style="text-align:right;">
@@ -4568,110 +4588,6 @@ year.x
 </tr>
 <tr>
 <td style="text-align:left;">
-latin_honors
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-15
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-survey_city
-</td>
-<td style="text-align:right;">
-1315
-</td>
-<td style="text-align:right;">
-0.59
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-22
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-299
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-survey_company
-</td>
-<td style="text-align:right;">
-1238
-</td>
-<td style="text-align:right;">
-0.62
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-49
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-916
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-survey_deptfunc
-</td>
-<td style="text-align:right;">
-1739
-</td>
-<td style="text-align:right;">
-0.46
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-161
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-257
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 survey_gradprogram
 </td>
 <td style="text-align:right;">
@@ -4691,292 +4607,6 @@ survey_gradprogram
 </td>
 <td style="text-align:right;">
 104
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-survey_gradschool
-</td>
-<td style="text-align:right;">
-3023
-</td>
-<td style="text-align:right;">
-0.07
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-70
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-128
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-survey_internfour
-</td>
-<td style="text-align:right;">
-3132
-</td>
-<td style="text-align:right;">
-0.03
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-56
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-102
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-survey_internone
-</td>
-<td style="text-align:right;">
-977
-</td>
-<td style="text-align:right;">
-0.70
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-78
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1743
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-survey_internships
-</td>
-<td style="text-align:right;">
-566
-</td>
-<td style="text-align:right;">
-0.83
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-survey_internthree
-</td>
-<td style="text-align:right;">
-2765
-</td>
-<td style="text-align:right;">
-0.15
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-60
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-382
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-survey_interntwo
-</td>
-<td style="text-align:right;">
-1870
-</td>
-<td style="text-align:right;">
-0.42
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-78
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1120
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-survey_offers
-</td>
-<td style="text-align:right;">
-1004
-</td>
-<td style="text-align:right;">
-0.69
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-14
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-survey_plans
-</td>
-<td style="text-align:right;">
-579
-</td>
-<td style="text-align:right;">
-0.82
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-28
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-survey_pref_field
-</td>
-<td style="text-align:right;">
-1550
-</td>
-<td style="text-align:right;">
-0.52
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-survey_pref_loc
-</td>
-<td style="text-align:right;">
-1631
-</td>
-<td style="text-align:right;">
-0.50
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-survey_state
-</td>
-<td style="text-align:right;">
-1297
-</td>
-<td style="text-align:right;">
-0.60
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-28
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-126
 </td>
 <td style="text-align:right;">
 0
@@ -5047,46 +4677,6 @@ FALSE
 </td>
 <td style="text-align:left;">
 non: 3018, Fin: 89, Mar: 48, Sup: 37
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-minor1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:right;">
-23
-</td>
-<td style="text-align:left;">
-No : 1775, Bus: 183, Hum: 180, Lan: 133
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-minor2
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:right;">
-23
-</td>
-<td style="text-align:left;">
-No : 2436, Hum: 98, Lan: 96, Bus: 91
 </td>
 </tr>
 </tbody>
@@ -5168,566 +4758,6 @@ nmajor
 </tr>
 <tr>
 <td style="text-align:left;">
-BBRJ
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-0.10
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-▇▁▁▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Business Direct Admit
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-0.71
-</td>
-<td style="text-align:right;">
-0.46
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-▃▁▁▁▇
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Combined Bacc and Masters
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:right;">
-0.21
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-▇▁▁▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Dean’s List
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-0.17
-</td>
-<td style="text-align:right;">
-0.38
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-▇▁▁▁▂
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-First Generation College Stdnt
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-0.10
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-▇▁▁▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-FSB Scholars
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-0.02
-</td>
-<td style="text-align:right;">
-0.14
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-▇▁▁▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Honors Program
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-0.09
-</td>
-<td style="text-align:right;">
-0.29
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-▇▁▁▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-President’s List
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-0.04
-</td>
-<td style="text-align:right;">
-0.20
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-▇▁▁▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Study Abroad Courtesy Account
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-0.03
-</td>
-<td style="text-align:right;">
-0.18
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-▇▁▁▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Transfer Work (Pre-Banner)
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-0.10
-</td>
-<td style="text-align:right;">
-0.30
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-▇▁▁▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Cum Laude
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-0.23
-</td>
-<td style="text-align:right;">
-0.42
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-▇▁▁▁▂
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Magna Cum Laude
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-0.09
-</td>
-<td style="text-align:right;">
-0.29
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-▇▁▁▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Summa Cum Laude
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-0.04
-</td>
-<td style="text-align:right;">
-0.19
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-▇▁▁▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-University Honors
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-0.07
-</td>
-<td style="text-align:right;">
-0.26
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-▇▁▁▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-UniversityHonors w/Distinction
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-0.00
-</td>
-<td style="text-align:right;">
-0.06
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-▇▁▁▁▁
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Term.Code
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.00
-</td>
-<td style="text-align:right;">
-202018.55
-</td>
-<td style="text-align:right;">
-81.88
-</td>
-<td style="text-align:right;">
-201910
-</td>
-<td style="text-align:right;">
-201920
-</td>
-<td style="text-align:right;">
-202020
-</td>
-<td style="text-align:right;">
-202120
-</td>
-<td style="text-align:right;">
-202130
-</td>
-<td style="text-align:left;">
-▇▁▇▁▇
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 survey_salary
 </td>
 <td style="text-align:right;">
@@ -5761,11 +4791,49 @@ survey_salary
 ▁▇▁▁▁
 </td>
 </tr>
+<tr>
+<td style="text-align:left;">
+placement
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+0.62
+</td>
+<td style="text-align:right;">
+0.49
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+▅▁▁▁▇
+</td>
+</tr>
 </tbody>
 </table>
-<pre class="r"><code>summary(data$survey_salary)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
-##   10000   52000   58000   58128   65000  175000    1503</code></pre>
+<pre class="r"><code>head(data)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["nmajor"],"name":[1],"type":["int"],"align":["right"]},{"label":["major1"],"name":[2],"type":["fct"],"align":["left"]},{"label":["major2"],"name":[3],"type":["fct"],"align":["left"]},{"label":["year.x"],"name":[4],"type":["chr"],"align":["left"]},{"label":["survey_gradprogram"],"name":[5],"type":["chr"],"align":["left"]},{"label":["survey_salary"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["placement"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"Marketing","3":"none","4":"2020","5":"NA","6":"NA","7":"0","_rn_":"1"},{"1":"1","2":"Finance","3":"none","4":"2019","5":"NA","6":"NA","7":"1","_rn_":"2"},{"1":"1","2":"Marketing","3":"none","4":"2021","5":"NA","6":"40000","7":"1","_rn_":"3"},{"1":"1","2":"Finance","3":"none","4":"2020","5":"NA","6":"NA","7":"1","_rn_":"4"},{"1":"1","2":"Marketing","3":"none","4":"2019","5":"NA","6":"63500","7":"1","_rn_":"5"},{"1":"1","2":"Marketing","3":"none","4":"2020","5":"NA","6":"68000","7":"1","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 <div id="the-rest-of-your-document" class="section level1" number="4">
@@ -5773,8 +4841,55 @@ survey_salary
 document</h1>
 <p>Add sections and subsections as necessary to guide your analysis</p>
 </div>
+<div id="computing-environment" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Computing
+Environment</h1>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>## R version 4.3.1 (2023-06-16 ucrt)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows 10 x64 (build 19045)
+## 
+## Matrix products: default
+## 
+## 
+## locale:
+## [1] LC_COLLATE=English_United States.utf8 
+## [2] LC_CTYPE=English_United States.utf8   
+## [3] LC_MONETARY=English_United States.utf8
+## [4] LC_NUMERIC=C                          
+## [5] LC_TIME=English_United States.utf8    
+## 
+## time zone: America/New_York
+## tzcode source: internal
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] plotly_4.10.2      skimr_2.1.5        stargazer_5.2.3    readxl_1.4.3      
+##  [5] lubridate_1.9.3    forcats_1.0.0      stringr_1.5.0      dplyr_1.1.3       
+##  [9] purrr_1.0.2        readr_2.1.4        tidyr_1.3.0        tibble_3.2.1      
+## [13] ggplot2_3.4.3      tidyverse_2.0.0    DataExplorer_0.8.2 pacman_0.5.1      
+## 
+## loaded via a namespace (and not attached):
+##  [1] gtable_0.3.4      xfun_0.40         bslib_0.5.1       htmlwidgets_1.6.2
+##  [5] tzdb_0.4.0        vctrs_0.6.3       tools_4.3.1       generics_0.1.3   
+##  [9] parallel_4.3.1    fansi_1.0.4       highr_0.10        pkgconfig_2.0.3  
+## [13] data.table_1.14.8 webshot_0.5.5     lifecycle_1.0.3   compiler_4.3.1   
+## [17] munsell_0.5.0     repr_1.1.6        htmltools_0.5.6   sass_0.4.7       
+## [21] yaml_2.3.7        lazyeval_0.2.2    pillar_1.9.0      jquerylib_0.1.4  
+## [25] cachem_1.0.8      tidyselect_1.2.0  rvest_1.0.3       digest_0.6.33    
+## [29] stringi_1.7.12    fastmap_1.1.1     grid_4.3.1        colorspace_2.1-0 
+## [33] cli_3.6.1         magrittr_2.0.3    base64enc_0.1-3   utf8_1.2.3       
+## [37] withr_2.5.1       scales_1.2.1      timechange_0.2.0  rmarkdown_2.25   
+## [41] httr_1.4.7        networkD3_0.4     igraph_1.5.1      gridExtra_2.3    
+## [45] cellranger_1.1.0  hms_1.1.3         evaluate_0.22     knitr_1.44       
+## [49] viridisLite_0.4.2 rlang_1.1.1       glue_1.6.2        xml2_1.3.5       
+## [53] svglite_2.1.1     rstudioapi_0.15.0 jsonlite_1.8.7    R6_2.5.1         
+## [57] systemfonts_1.0.4</code></pre>
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkNsZWFuaW5nIHRoZSBDb21iaW5lZCBCSSBBbmQgU3VydmV5IENhcmVlciBEYXRhIg0KYXV0aG9yOiAiTmF0aGFuIENyYWZ0IGFuZCBFbGxlIFBydXNrbyINCm91dHB1dDoNCiAgaHRtbF9kb2N1bWVudDoNCiAgICBkYXRlOiAiYHIgZm9ybWF0KFN5cy50aW1lKCksICclZCAlQiwgJVknKWAiDQogICAgY29kZV9mb2xkaW5nOiBoaWRlDQogICAgZGZfcHJpbnQ6IHBhZ2VkDQogICAgbnVtYmVyX3NlY3Rpb25zOiB5ZXMNCiAgICB0aGVtZTogY2VydWxlYW4NCiAgICB0b2M6IHllcw0KICAgIHRvY19mbG9hdDogeWVzDQogICAgY29kZV9kb3dubG9hZDogdHJ1ZQ0KICB3b3JkX2RvY3VtZW50Og0KICAgIHRvYzogbm8NCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSxtZXNzYWdlPUZBTFNFLHdhcm5pbmc9RkFMU0UpDQoNCiNwYWNrYWdlIGludGlhbGl6YXRpb24NCnJtKGxpc3QgPSBscygpKSAjIGNsZWFyIGdsb2JhbCBlbnZpcm9ubWVudA0KZ3JhcGhpY3Mub2ZmKCkgIyBjbG9zZSBhbGwgZ3JhcGhpY3MNCmlmKHJlcXVpcmUocGFjbWFuKT09RkFMU0UpIGluc3RhbGwucGFja2FnZXMoInBhY21hbiIpDQpwYWNtYW46OnBfbG9hZChEYXRhRXhwbG9yZXIsdGlkeXZlcnNlLHJlYWR4bCxzdGFyZ2F6ZXIsa2FibGVFeHRyYSxza2ltcixwbG90bHkpDQpgYGANCg0KIyBJbnRyb2R1Y3Rpb24gYW5kIFB1cnBvc2UNCg0KVGhlIGdvYWwgb2YgdGhpcyBwcm9qZWN0IGlzIGZvciBOYXRoYW4gQ3JhZnQgYW5kIEVsbGUgUHJ1c2tvIHRvIGFuc3dlciB0aGUgcXVlc3Rpb246ICJXaGF0IGFyZSB0aGUgbWFjcm8gcGxhY2VtZW50IGFuZCBzYWxhcnkgdHJlbmRzIHdlIGFyZSBzZWVpbmcgb3ZlciB0aGUgcGFzdCB0aHJlZSB5ZWFycz8iLiBUbyBkbyBzbywgd2UgaGF2ZSBpZGVudGlmaWVkIHBvdGVudGlhbCBwYWlucyBmb3Igb3VyIGF1ZGllbmNlLiBTdWNoIHBhaW5zIGNvbnNpc3Qgb2Y6DQoNCi0gICBMYWNrIG9mIGluZm9ybWF0aW9uIHRvIGJldHRlciBndWlkZSBzdHVkZW50cyBkb3duIHRoZSByaWdodCBjYXJlZXIgcGF0aA0KLSAgIEZpbmRpbmcgc3R1ZGVudHMgaGlnaC1wYXlpbmcgam9icyB0aGF0IGZpdCB0aGVpciBtYWpvcg0KLSAgIERlZXBlciB1bmRlcnN0YW5kaW5nIG9mIHNhbGFyeSB0cmVuZHMgYnkgaW5kdXN0cnkNCi0gICBMaW1pdGVkIHN0YWZmaW5nIHRvIGFsbG9jYXRlIHN1ZmZpY2llbnQgdGltZSB0byBlYWNoIHN0dWRlbnQncyBuZWVkcw0KDQpUbyBlbGltaW5hdGUgdGhlc2UgcGFpbnMsIHdlIGludGVuZCB0byBwaWxvdCBhbiBGU0IgUGxhY2VtZW50IEFuYWx5c2lzIHdoZXJlIHdlIHdpbGwgdmlzdWFsaXplIGFuZCB1bmRlcnN0YW5kIHNhbGFyeSBhbmQgcGxhY2VtZW50IHRyZW5kcy4gV2Ugd2lsbCBhbHNvIGRvIGV4dGVybmFsIHJlc2VhcmNoIG9mIHNhbGFyeSB0cmVuZHMgaW4gcmVsYXRlZCBpbmR1c3RyaWVzLCBhbmQgZGVsaXZlciBhIHNvdW5kYml0ZSBvZiBrZXkgZmluZGluZ3MgYW5kIGRhdGEtZHJpdmVuIHJlY29tbWVuZGF0aW9ucy4NCg0KIyMgQlZQDQoNCiFbXShGU0IgUGxhY2VtZW50IEluc2lnaHRzIEJWUCBTbGlkZSAxLnBuZykNCg0KIVtdKEZTQiBQbGFjZW1lbnQgSW5zaWdodHMgQlZQIFNsaWRlIDIucG5nKQ0KDQpQVVQgQU4gQU5OT1RBVElPTg0KDQojIERhdGEgU291cmNlcw0KDQpXZSBoYXZlIGRhdGEgZnJvbSAzIHllYXJzIG9mIGdyYWR1YXRlcywgMjAxOSAtIDIwMjEsIHJlcHJlc2VudGluZyB0aGVpciByZXN1bHRzIGZyb20gc3VydmV5cyBvbiB0aGVpciBjYXJlZXIgcGxhY2VtZW50IHJlc3VsdHMgb25jZSB0aGV5IGxlZnQgY29sbGVnZS4NCg0KIyMgUmVhZCBpbiB0aGUgZGF0YQ0KDQpgYGB7cn0NCmRhdGE9cmVhZFJEUyhmaWxlID0gIkZTQl9CSV9TdXJ2ZXlfMjAxOV8yMDIxLnJkcyIpDQpgYGANCg0KIyBEYXRhIFByZXByb2Nlc3NpbmcNCg0KIyMgRGF0YSBFeHBsb3JhdGlvbg0KDQpwdXQgaW4gc3VtbWFyaWVzIGFuZCBoZWFkDQoNCmBgYHtyfQ0Kc2tpbShkYXRhKQ0KYGBgDQpLZXkgVGFrZWF3YXlzOg0KLSBNYWpvciBhbmQgTWlub3IgYXJlIHN0cnVjdHVyZWQgYW5kIGNsZWFuIHdpdGggbm8gdmFsdWVzIG1pc3NpbmcuIFRoZXJlIGFyZSBubyByZWR1bmRhbnQgbWFqb3Igb3IgbWlub3IgbGlzdGluZ3MsIHNvIHRoZXNlIGNvbHVtbnMgZG8gbm90IG5lZWQgZnVydGhlciBjbGVhbmluZy4NCi0gVGhlcmUgYXJlIGEgc21hbGwgYW1vdW50IG9mIGRvdWJsZSBtYWpvcnMgdGhhdCBuZWVkIHRvIGJlIHByb3Blcmx5IHJlcHJlc2VudGVkIHNvIA0KLSBUaGUgc3VydmV5IGNvbHVtbnMgZm9jdXNpbmcgb24gam9iIHBsYWNlbWVudCBhbmQgc2FsYXJ5IGhhdmUgfjUwJSBvZiB0aGVpciB2YWx1ZXMgbWlzc2luZywgaW5kaWNhdGluZyB0aGF0IHRoZXkgZGlkIG5vdCBwbGFjZS4gVG8gc2ltcGxpZnkgdGhpcyBpbiB0aGUgZnV0dXJlIHdlIHdpbGwgY3JlYXRlIGEgYmluYXJ5IGNvbHVtbiB0byByZXByZXNlbnQgZWl0aGVyIGJlaW5nIHBsYWNlZCBvciBub3QgYmVpbmcgcGxhY2VkLg0KDQpgYGB7cn0NCmhlYWQoZGF0YSkNCmBgYA0KDQoNCg0KIyMgVG8gRG9zDQotIEVzdGFibGlzaCB3aGljaCBjb2x1bW5zIHdlIG5lZWQgZm9yIG91ciBhbmFseXNpcw0KLSBEcm9wIHVubmVjZXNzYXJ5IGNvbHVtbnMNCi0gQ3JlYXRlIGNvbHVtbiBmb3IgMSA9IHBsYWNlZCBpbiBhIGpvYiwgMCA9IGRpZCBub3QgcGxhY2UNCi0gRW5zdXJlIGRhdGEgaW50ZWdyaXR5IG9mIGNvbHVtbnMgd2UgYXJlIGtlZXBpbmcNCg0KYGBge3J9DQpza2ltKGRhdGEpDQpgYGANCg0KYGBge3J9DQpzdW1tYXJ5KGRhdGEkc3VydmV5X3NhbGFyeSkNCmBgYA0KDQoNCg0KDQoNCiMgVGhlIHJlc3Qgb2YgeW91ciBkb2N1bWVudA0KDQpBZGQgc2VjdGlvbnMgYW5kIHN1YnNlY3Rpb25zIGFzIG5lY2Vzc2FyeSB0byBndWlkZSB5b3VyIGFuYWx5c2lzDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkNsZWFuaW5nIHRoZSBDb21iaW5lZCBCSSBBbmQgU3VydmV5IENhcmVlciBEYXRhIg0KYXV0aG9yOiAiTmF0aGFuIENyYWZ0IGFuZCBFbGxlIFBydXNrbyINCm91dHB1dDoNCiAgaHRtbF9kb2N1bWVudDoNCiAgICBkYXRlOiAiYHIgZm9ybWF0KFN5cy50aW1lKCksICclZCAlQiwgJVknKWAiDQogICAgY29kZV9mb2xkaW5nOiBoaWRlDQogICAgZGZfcHJpbnQ6IHBhZ2VkDQogICAgbnVtYmVyX3NlY3Rpb25zOiB5ZXMNCiAgICB0aGVtZTogY2VydWxlYW4NCiAgICB0b2M6IHllcw0KICAgIHRvY19mbG9hdDogeWVzDQogICAgY29kZV9kb3dubG9hZDogdHJ1ZQ0KICB3b3JkX2RvY3VtZW50Og0KICAgIHRvYzogbm8NCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSxtZXNzYWdlPUZBTFNFLHdhcm5pbmc9RkFMU0UpDQoNCiNwYWNrYWdlIGludGlhbGl6YXRpb24NCnJtKGxpc3QgPSBscygpKSAjIGNsZWFyIGdsb2JhbCBlbnZpcm9ubWVudA0KZ3JhcGhpY3Mub2ZmKCkgIyBjbG9zZSBhbGwgZ3JhcGhpY3MNCmlmKHJlcXVpcmUocGFjbWFuKT09RkFMU0UpIGluc3RhbGwucGFja2FnZXMoInBhY21hbiIpDQpwYWNtYW46OnBfbG9hZChEYXRhRXhwbG9yZXIsdGlkeXZlcnNlLHJlYWR4bCxzdGFyZ2F6ZXIsa2FibGVFeHRyYSxza2ltcixwbG90bHkpDQpgYGANCg0KIyBJbnRyb2R1Y3Rpb24gYW5kIFB1cnBvc2UNCg0KVGhlIGdvYWwgb2YgdGhpcyBwcm9qZWN0IGlzIGZvciBOYXRoYW4gQ3JhZnQgYW5kIEVsbGUgUHJ1c2tvIHRvIGFuc3dlciB0aGUgcXVlc3Rpb246ICJXaGF0IGFyZSB0aGUgbWFjcm8gcGxhY2VtZW50IGFuZCBzYWxhcnkgdHJlbmRzIHdlIGFyZSBzZWVpbmcgb3ZlciB0aGUgcGFzdCB0aHJlZSB5ZWFycz8iLiBUbyBkbyBzbywgd2UgaGF2ZSBpZGVudGlmaWVkIHBvdGVudGlhbCBwYWlucyBmb3Igb3VyIGF1ZGllbmNlLiBTdWNoIHBhaW5zIGNvbnNpc3Qgb2Y6DQoNCi0gICBMYWNrIG9mIGluZm9ybWF0aW9uIHRvIGJldHRlciBndWlkZSBzdHVkZW50cyBkb3duIHRoZSByaWdodCBjYXJlZXIgcGF0aA0KLSAgIEZpbmRpbmcgc3R1ZGVudHMgaGlnaC1wYXlpbmcgam9icyB0aGF0IGZpdCB0aGVpciBtYWpvcg0KLSAgIERlZXBlciB1bmRlcnN0YW5kaW5nIG9mIHNhbGFyeSB0cmVuZHMgYnkgaW5kdXN0cnkNCi0gICBMaW1pdGVkIHN0YWZmaW5nIHRvIGFsbG9jYXRlIHN1ZmZpY2llbnQgdGltZSB0byBlYWNoIHN0dWRlbnQncyBuZWVkcw0KDQpUbyBlbGltaW5hdGUgdGhlc2UgcGFpbnMsIHdlIGludGVuZCB0byBwaWxvdCBhbiBGU0IgUGxhY2VtZW50IEFuYWx5c2lzIHdoZXJlIHdlIHdpbGwgdmlzdWFsaXplIGFuZCB1bmRlcnN0YW5kIHNhbGFyeSBhbmQgcGxhY2VtZW50IHRyZW5kcy4gV2Ugd2lsbCBhbHNvIGRvIGV4dGVybmFsIHJlc2VhcmNoIG9mIHNhbGFyeSB0cmVuZHMgaW4gcmVsYXRlZCBpbmR1c3RyaWVzLCBhbmQgZGVsaXZlciBhIHNvdW5kYml0ZSBvZiBrZXkgZmluZGluZ3MgYW5kIGRhdGEtZHJpdmVuIHJlY29tbWVuZGF0aW9ucy4NCg0KIyMgQlZQDQoNCiFbXShGU0IgUGxhY2VtZW50IEluc2lnaHRzIEJWUCBTbGlkZSAxLnBuZykNCg0KIVtdKEZTQiBQbGFjZW1lbnQgSW5zaWdodHMgQlZQIFNsaWRlIDIucG5nKQ0KDQpQVVQgQU4gQU5OT1RBVElPTg0KDQojIERhdGEgU291cmNlcw0KDQpXZSBoYXZlIGRhdGEgZnJvbSAzIHllYXJzIG9mIGdyYWR1YXRlcywgMjAxOSAtIDIwMjEsIHJlcHJlc2VudGluZyB0aGVpciByZXN1bHRzIGZyb20gc3VydmV5cyBvbiB0aGVpciBjYXJlZXIgcGxhY2VtZW50IHJlc3VsdHMgb25jZSB0aGV5IGxlZnQgY29sbGVnZS4NCg0KIyMgUmVhZCBpbiB0aGUgZGF0YQ0KDQpgYGB7cn0NCmRhdGE9cmVhZFJEUyhmaWxlID0gIkZTQl9CSV9TdXJ2ZXlfMjAxOV8yMDIxLnJkcyIpDQpgYGANCg0KIyBEYXRhIFByZXByb2Nlc3NpbmcNCg0KIyMgRGF0YSBFeHBsb3JhdGlvbg0KDQpwdXQgaW4gc3VtbWFyaWVzIGFuZCBoZWFkDQoNCmBgYHtyfQ0Kc2tpbShkYXRhKQ0KYGBgDQpLZXkgVGFrZWF3YXlzOg0KLSBNYWpvciBhbmQgTWlub3IgYXJlIHN0cnVjdHVyZWQgYW5kIGNsZWFuIHdpdGggbm8gdmFsdWVzIG1pc3NpbmcuIFRoZXJlIGFyZSBubyByZWR1bmRhbnQgbWFqb3Igb3IgbWlub3IgbGlzdGluZ3MsIHNvIHRoZXNlIGNvbHVtbnMgZG8gbm90IG5lZWQgZnVydGhlciBjbGVhbmluZy4NCi0gVGhlcmUgYXJlIGEgc21hbGwgYW1vdW50IG9mIGRvdWJsZSBtYWpvcnMgdGhhdCBuZWVkIHRvIGJlIHByb3Blcmx5IHJlcHJlc2VudGVkIHNvIA0KLSBUaGUgc3VydmV5IGNvbHVtbnMgZm9jdXNpbmcgb24gam9iIHBsYWNlbWVudCBhbmQgc2FsYXJ5IGhhdmUgfjUwJSBvZiB0aGVpciB2YWx1ZXMgbWlzc2luZywgaW5kaWNhdGluZyB0aGF0IHRoZXkgZGlkIG5vdCBwbGFjZS4gVG8gc2ltcGxpZnkgdGhpcyBpbiB0aGUgZnV0dXJlIHdlIHdpbGwgY3JlYXRlIGEgYmluYXJ5IGNvbHVtbiB0byByZXByZXNlbnQgZWl0aGVyIGJlaW5nIHBsYWNlZCBvciBub3QgYmVpbmcgcGxhY2VkLg0KLSBDb2x1bW4gbmFtZXMgc29tZXRpbWVzIGhhdmUgc3BhY2VzLCB3ZSB3aWxsIHJlbmFtZSB0aGVzZSB0byBoYXZlIHVuZGVyc2NvcmVzIGluc3RlYWQgdG8gbWFrZSB0aGUgZGF0YSBzZXQgZWFzaWVyIHRvIHdvcmsgd2l0aA0KDQpgYGB7cn0NCmhlYWQoZGF0YSkNCmBgYA0KS2V5IFRha2Vhd2F5czoNCi0gVGhlIGhlYWQgb2YgdGhlIGRhdGEgcmV2ZWFscyB0aGVyZSBhcmUgbWFueSBjb2x1bW5zIHVubmVjZXNzYXJ5IGZvciBvdXIgYW5hbHlzaXMuDQotIEluIG91ciBhbmFseXNpcyB3ZSBuZWVkIHRoZSB5ZWFyLCB0aGUgbWFqb3JzLCB0aGUgcG9zdCBncmFkdWF0aW9uIHBsYW5zIHRvIGRldGVybWluZSBwbGFjZW1lbnQsIGFuZCBzYWxhcnkgY29sdW1ucyAobm1ham9yLCBtYWpvcjEsIG1ham9yMiwgeWVhci54LCBzdXJ2ZXlfcGxhbnMsIHN1cnZleV9zYWxhcnkpDQotT3RoZXIgY29sdW1ucyBjYW4gYmUgZHJvcHBlZCAoQkJSSiwgQnVzaW5lc3MgRGlyZWN0IEFkbWl0LCBDb21iaW5lZCBCYWNjIGFuZCBNYXN0ZXJzLCBEZWFuJ3MgTGlzdCwgRmlyc3QgR2VuZXJhdGlvbiBDb2xsZWdlIFN0ZG50LCBGU0IgU2Nob2xhcnMsIEhvbm9yJ3MgUHJvZ3JhbSwgUHJlc2lkZW50J3MgTGlzdCwgU3R1ZHkgQWJyb2FkIENvdXJ0ZXN5IEFjY291bnQsIFRyYW5zZmVyIFdvcmsgKFByZS1CYW5uZXIpLCBDdW0gTGF1ZGUsIE1hZ25hIEN1bSBMYXVkZSwgU3VtbWEgQ3VtIExhdWRlLCBVbml2ZXJzaXR5IEhvbm9ycywgVW5pdmVyc2l0eUhvbm9ycyB3L0Rpc3RpbmN0aW9uLCBtaW5vcjEsIG1pbm9yMiwgSVBFRFMuUmFjZS5FdGhuaWNpdHksIEdlbmRlciwgR1BBLlJhbmdlLCBUZXJtLkNvZGUsIGxhdGluX2hvbm9ycywgc3VydmV5X2NpdHksIHN1cnZleV9jb21wYW55LCBzdXJ2ZXlfZGVwdGZ1bmMsIHN1cnZleV9ncmFkcHJvZ3JhbSwgc3VydmV5X2dyYWRzY2hvb2wsIHN1cnZleV9pbnRlcm5mb3VyLCBzdXJ2ZXlfaW50ZXJub25lLCBzdXJ2ZXlfaW50ZXJuc2hpcHMsIHN1cnZleV9pbnRlcm50aHJlZSwgc3VydmV5X2ludGVybnR3bywgc3VydmV5X29mZmVycywgc3VydmV5X3ByZWZfZmllbGQsIHN1cnZleV9wcmVmX2xvYywgc3VydmV5X3N0YXRlKQ0KLSBGcm9tIHRoZSBzdXJ2ZXlfcGxhbnMgY29sdW1uIHdlIGNhbiBjcmVhdGUgYSBiaW5hcnkgZmllbGQgZm9yIGlmIHRoZSBncmFkdWF0ZSBwbGFjZWQgb3Igbm90LCB0aGVuIHdlIGNhbiBkcm9wIHN1cnZleV9wbGFucw0KDQoNCiMjIFRvIERvcw0KLSBSZW1vdmluZyBzcGFjZXMgZnJvbSBjb2x1bW4gbmFtZXMNCi0gQ3JlYXRlIGJpbmFyeSB2YXJpYWJsZSBiYXNlZCBvbiBzdXJ2ZXlfcGxhbnMgdG8gZGV0ZXJtaW5lIGlmIHRoZSBzdHVkZW50IHBsYWNlZCBvciBub3QNCi0gRHJvcCB1bm5lY2Vzc2FyeSBjb2x1bW5zDQotIEVuc3VyZSBkYXRhIGludGVncml0eSBvZiBjb2x1bW5zIGJlaW5nIHJldGFpbmVkDQoNCiMjIFJlbW92ZSBzcGFjZXMgZnJvbSBjb2x1bW4gbmFtZXMNCg0KYGBge3J9DQpuYW1lcyhkYXRhKVtuYW1lcyhkYXRhKSA9PSAiQnVzaW5lc3MgRGlyZWN0IEFkbWl0Il0gPC0gIkJ1c2luZXNzX0RpcmVjdF9BZG1pdCINCm5hbWVzKGRhdGEpW25hbWVzKGRhdGEpID09ICJGU0IgU2Nob2xhcnMiXSA8LSAiRlNCX1NjaG9sYXJzIg0KbmFtZXMoZGF0YSlbbmFtZXMoZGF0YSkgPT0gIlRyYW5zZmVyIFdvcmsgKFByZS1CYW5uZXIpIl0gPC0gIlRyYW5zZmVyX1dvcmsiDQpuYW1lcyhkYXRhKVtuYW1lcyhkYXRhKSA9PSAiVW5pdmVyc2l0eSBIb25vcnMiXSA8LSAiVW5pdmVyc2l0eV9Ib25vcnMiDQpuYW1lcyhkYXRhKVtuYW1lcyhkYXRhKSA9PSAiQ29tYmluZWQgQmFjYyBhbmQgTWFzdGVycyJdIDwtICJDb21iaW5lZF9CYWNjX2FuZF9NYXN0ZXJzIg0KbmFtZXMoZGF0YSlbbmFtZXMoZGF0YSkgPT0gIkhvbm9ycyBQcm9ncmFtIl0gPC0gIkhvbm9yc19Qcm9ncmFtIg0KbmFtZXMoZGF0YSlbbmFtZXMoZGF0YSkgPT0gIkN1bSBMYXVkZSJdIDwtICJDdW1fTGF1ZGUiDQpuYW1lcyhkYXRhKVtuYW1lcyhkYXRhKSA9PSAiVW5pdmVyc2l0eUhvbm9ycyB3L0Rpc3RpbmN0aW9uIl0gPC0gIlVuaXZlcnNpdHlIb25vcnNfRGlzdGluY3Rpb24iDQpuYW1lcyhkYXRhKVtuYW1lcyhkYXRhKSA9PSAiRGVhbidzIExpc3QiXSA8LSAiRGVhbnNfTGlzdCINCm5hbWVzKGRhdGEpW25hbWVzKGRhdGEpID09ICJQcmVzaWRlbnQncyBMaXN0Il0gPC0gIlByZXNpZGVudF9MaXN0Ig0KbmFtZXMoZGF0YSlbbmFtZXMoZGF0YSkgPT0gIk1hZ25hIEN1bSBMYXVkZSJdIDwtICJNYWduYV9DdW1fTGF1ZGUiDQpuYW1lcyhkYXRhKVtuYW1lcyhkYXRhKSA9PSAiRmlyc3QgR2VuZXJhdGlvbiBDb2xsZWdlIFN0ZG50Il0gPC0gIkZpcnN0X0dlbl9Db2xsZWdlX1N0ZG50Ig0KbmFtZXMoZGF0YSlbbmFtZXMoZGF0YSkgPT0gIlN0dWR5IEFicm9hZCBDb3VydGVzeSBBY2NvdW50Il0gPC0gIlN0dWR5X0Ficm9hZF9Db3VydGVzeV9BY2NvdW50Ig0KbmFtZXMoZGF0YSlbbmFtZXMoZGF0YSkgPT0gIlN1bW1hIEN1bSBMYXVkZSJdIDwtICJTdW1tYV9DdW1fTGF1ZGUiDQpgYGANCg0KYGBge3J9DQpoZWFkKGRhdGEpDQpgYGANCg0KIyMgQ3JlYXRpbmcgYW5kIFJlbW92aW5nIENvbHVtbnMNCg0KSW4gdGhpcyBjaHVuayB3ZSBjcmVhdGUgYSBiaW5hcnkgZmllbGQgdG8gcmVwcmVzZW50IHdoaWNoIGdyYWR1YXRlcyBwbGFjZWQgaW50byBhIGpvYi4gTi9BIHZhbHVlcyB3ZXJlIGNvbnNpZGVyZWQgdG8gbm90IGhhdmUgcGxhY2VkIGludG8gYSBqb2IuIFRoaXMgaXMgYmVjYXVzZSBmb3IgYW5hbHl6aW5nIHBsYWNlbWVudCB0cmVuZHMgd2UgZG8gbm90IG5lZWQgdG8gY29uc2lkZXIgYW55IGdyYW51bGFyaXR5IGJlc2lkZXMgd2hldGhlciBvciBub3QgdGhleSBwbGFjZWQuIFdoZXJlIHRoZXkgcGxhY2VkIG9yIHdoYXQgYWx0ZXJuYXRlIHBsYW5zIHRoZXkgaGFkIHdlcmUgbm90IGltcG9ydGFudCBmb3IgYWRkcmVzc2luZyB0aGUgcGFpbnMgdGhpcyBhbmFseXNpcyBpcyBmb2N1c2VkIG9uLg0KDQpgYGB7cn0NCmRhdGEkcGxhY2VtZW50ID0gaWZlbHNlKGRhdGEkc3VydmV5X3BsYW4gPT0gImFjY2VwdGVkIGZ1bGx0aW1lIGpvYiIsIDEsIDApDQpkYXRhJHBsYWNlbWVudFtpcy5uYShkYXRhJHBsYWNlbWVudCldIDwtIDANCmBgYA0KDQpJbiB0aGUgZm9sbG93aW5nIGNodW5rIHdlIGRyb3AgdGhlIGNvbHVtbnMgdGhhdCBhcmUgbm90IHJlbGV2YW50IHRvIHRoZSBwYWlucyB3ZSBhcmUgYWRkcmVzc2luZy4NCg0KYGBge3J9DQpkYXRhID0gc3Vic2V0KGRhdGEsIHNlbGVjdCA9IC1CdXNpbmVzc19EaXJlY3RfQWRtaXQpDQpkYXRhID0gc3Vic2V0KGRhdGEsIHNlbGVjdCA9IC1CQlJKKQ0KZGF0YSA9IHN1YnNldChkYXRhLCBzZWxlY3QgPSAtQ29tYmluZWRfQmFjY19hbmRfTWFzdGVycykNCmRhdGEgPSBzdWJzZXQoZGF0YSwgc2VsZWN0ID0gLURlYW5zX0xpc3QpDQpkYXRhID0gc3Vic2V0KGRhdGEsIHNlbGVjdCA9IC1GaXJzdF9HZW5fQ29sbGVnZV9TdGRudCkNCmRhdGEgPSBzdWJzZXQoZGF0YSwgc2VsZWN0ID0gLUZTQl9TY2hvbGFycykNCmRhdGEgPSBzdWJzZXQoZGF0YSwgc2VsZWN0ID0gLUhvbm9yc19Qcm9ncmFtKQ0KZGF0YSA9IHN1YnNldChkYXRhLCBzZWxlY3QgPSAtUHJlc2lkZW50X0xpc3QpDQpkYXRhID0gc3Vic2V0KGRhdGEsIHNlbGVjdCA9IC1TdHVkeV9BYnJvYWRfQ291cnRlc3lfQWNjb3VudCkNCmRhdGEgPSBzdWJzZXQoZGF0YSwgc2VsZWN0ID0gLVRyYW5zZmVyX1dvcmspDQpkYXRhID0gc3Vic2V0KGRhdGEsIHNlbGVjdCA9IC1DdW1fTGF1ZGUpDQpkYXRhID0gc3Vic2V0KGRhdGEsIHNlbGVjdCA9IC1NYWduYV9DdW1fTGF1ZGUpDQpkYXRhID0gc3Vic2V0KGRhdGEsIHNlbGVjdCA9IC1TdW1tYV9DdW1fTGF1ZGUpDQpkYXRhID0gc3Vic2V0KGRhdGEsIHNlbGVjdCA9IC1Vbml2ZXJzaXR5X0hvbm9ycykNCmRhdGEgPSBzdWJzZXQoZGF0YSwgc2VsZWN0ID0gLVVuaXZlcnNpdHlIb25vcnNfRGlzdGluY3Rpb24pDQpkYXRhID0gc3Vic2V0KGRhdGEsIHNlbGVjdCA9IC1taW5vcjEpDQpkYXRhID0gc3Vic2V0KGRhdGEsIHNlbGVjdCA9IC1taW5vcjIpDQpkYXRhID0gc3Vic2V0KGRhdGEsIHNlbGVjdCA9IC1JUEVEUy5SYWNlLkV0aG5pY2l0eSkNCmRhdGEgPSBzdWJzZXQoZGF0YSwgc2VsZWN0ID0gLUdlbmRlcikNCmRhdGEgPSBzdWJzZXQoZGF0YSwgc2VsZWN0ID0gLUdQQS5SYW5nZSkNCmRhdGEgPSBzdWJzZXQoZGF0YSwgc2VsZWN0ID0gLVRlcm0uQ29kZSkNCmRhdGEgPSBzdWJzZXQoZGF0YSwgc2VsZWN0ID0gLWxhdGluX2hvbm9ycykNCmRhdGEgPSBzdWJzZXQoZGF0YSwgc2VsZWN0ID0gLXN1cnZleV9jaXR5KQ0KZGF0YSA9IHN1YnNldChkYXRhLCBzZWxlY3QgPSAtc3VydmV5X2NvbXBhbnkpDQpkYXRhID0gc3Vic2V0KGRhdGEsIHNlbGVjdCA9IC1zdXJ2ZXlfZGVwdGZ1bmMpDQpkYXRhID0gc3Vic2V0KGRhdGEsIHNlbGVjdCA9IC1zdXJ2ZXlfZ3JhZHNjaG9vbCkNCmRhdGEgPSBzdWJzZXQoZGF0YSwgc2VsZWN0ID0gLXN1cnZleV9pbnRlcm5mb3VyKQ0KZGF0YSA9IHN1YnNldChkYXRhLCBzZWxlY3QgPSAtc3VydmV5X2ludGVybm9uZSkNCmRhdGEgPSBzdWJzZXQoZGF0YSwgc2VsZWN0ID0gLXN1cnZleV9pbnRlcm5zaGlwcykNCmRhdGEgPSBzdWJzZXQoZGF0YSwgc2VsZWN0ID0gLXN1cnZleV9pbnRlcm50aHJlZSkNCmRhdGEgPSBzdWJzZXQoZGF0YSwgc2VsZWN0ID0gLXN1cnZleV9pbnRlcm50d28pDQpkYXRhID0gc3Vic2V0KGRhdGEsIHNlbGVjdCA9IC1zdXJ2ZXlfb2ZmZXJzKQ0KZGF0YSA9IHN1YnNldChkYXRhLCBzZWxlY3QgPSAtc3VydmV5X3ByZWZfZmllbGQpDQpkYXRhID0gc3Vic2V0KGRhdGEsIHNlbGVjdCA9IC1zdXJ2ZXlfcHJlZl9sb2MpDQpkYXRhID0gc3Vic2V0KGRhdGEsIHNlbGVjdCA9IC1zdXJ2ZXlfc3RhdGUpDQpkYXRhID0gc3Vic2V0KGRhdGEsIHNlbGVjdCA9IC1zdXJ2ZXlfcGxhbnMpDQpgYGANCg0KIyMgUmUtZXZhbHVhdGluZyB0aGUgZGF0YQ0KDQpgYGB7cn0NCnNraW0oZGF0YSkNCmBgYA0KDQpgYGB7cn0NCmhlYWQoZGF0YSkNCmBgYA0KDQoNCg0KIyBUaGUgcmVzdCBvZiB5b3VyIGRvY3VtZW50DQoNCkFkZCBzZWN0aW9ucyBhbmQgc3Vic2VjdGlvbnMgYXMgbmVjZXNzYXJ5IHRvIGd1aWRlIHlvdXIgYW5hbHlzaXMNCg0KIyBDb21wdXRpbmcgRW52aXJvbm1lbnQNCg0KYGBge3J9DQpzZXNzaW9uSW5mbygpDQpgYGANCg0K</div>
 
 
 </div>
