@@ -27,7 +27,7 @@ pacman::p_load(DataExplorer,tidyverse,readxl,stargazer,kableExtra,skimr,plotly)
 
 # Introduction and Purpose
 
-The goal of this project is for Nathan Craft and Elle Prusko to answer the question: "What are the macro placement and salary trends we are seeing over the past three years?". To do so, we have identified potential pains for our audience. Such pains consist of:
+The goal of this project is to answer the question: "What are the macro placement and salary trends we are seeing over the past three years?". To do so, we have identified potential pains for our audience. Such pains consist of:
 
 -   Lack of information to better guide students down the right career path
 -   Finding students high-paying jobs that fit their major
@@ -48,48 +48,48 @@ This is our Business Value Proposition. Using the pains and painkillers we can g
 
 We have data from 3 years of graduates, 2019 - 2021, representing their results from surveys on their career placement results once they left college. There are 42 variables initially, but these may be pruned down as necessary for the needs of our analysis. The data was derived by Dr. Jones-Farmer from the Oracle Business Intelligence Enterprise Edition (OBIEE) maintained by Miami adminsitration, or from the self reported senior survey.
 
-nmajor: numeric,derived, the number of majors
-major1: text, OBIEE, first major
-major 2: text, OBIEE, second major
-BBRJ: binary, OBIEE, an attribute of a student, but we do not know what this stands for
-Business Direct Admit: binary, OBIEE, a direct admit to FSB as a first year
-Combined Cacc and Masters: binary, OBIEE, combined degree student
-Dean's List: binary, OBIEE, achieve dean's list status at least once
-First Generation College Stdnt: binary, OBIEE, first generation student status
-FSB Scholars: binary, OBIEE, FSB scholars program
-Honors Program: binary, OBIEE, member of University honors program
-President's list: binary, OBIEE, achieved president's list at least once
-Study Abroud Courtesy Account: binary, OBIEE, do not know meaning
-Transfer Work: binary, OBIEE, do not know exact meaning
-Cum Laude: binary, OBIEE, graduated Cum Laude
-Magna Cum Laude: binary, OBIEE, graduated Magna Cum Laude
-Summa Cum Laude: binary, OBIEE, graduated Summa Cum Laude
-University Honors: binary, OBIEE, graduated with University Honors
-University Honors w/Distinction: binary, OBIEE, graduated with University Honors with Distinction
-minor1: text, OBIEE, first listed minor
-minor2: text, OBIEE, second listed minor
-IPEDS.Race.Ethnicity: text, OBIEE, race/ethnicity
-Gender: text, OBIEE, sex
-GPA.Range: text, OBIEE, GPA within a .5 range
-Term.Code: numberic, OBIEE, First four digits are the physcal year (beginning in July, e.g. July 2020 is FY 2021). Last two digits is the term (10=fall, 15=winter, 20=spring, 30=summer).
-Year.x: text, derived, first four digits of Term.Code stored as a character variable
-latin_honors: text, survey, latin honors designation
-survey_city: text, survey, student reported city in which their job is located
-survey_company: text, survey, student reported company in which they accepted a job
-survey_deptfunc: text, survey, student reported job function
-survey_gradprogram: text, survey, student reported graduate program they will be attending
-survey_gradschool: text, survey, stuent reported graduate school they will be attending
-survey_internfour: text, survey, student reported fourth internship they held during college
-survey_internthree: text, survey, student reported third internship they held during college
-survey_interntwo: text, survey, student reported second internship they held during college
-survey_internone: text, survey, student reported first internship they held during college
-Survey_internships: text, survey, Student reported number of internships they held during college
-survey_offers: text, survey, student reported number of offers for full time employment received
-survey_plans: text, survey, student reported plans after graduation
-survey_pref_field: text, survey, student reported whether working in preferred field
-survey_pref_loc: text, survey, student reported whether working in preferred location
-survey_salary: numeric, survey, student reported salary
-survey_state: text, survey, student reported state in which job is located
+- nmajor: numeric,derived, the number of majors
+- major1: text, OBIEE, first major
+- major 2: text, OBIEE, second major
+- BBRJ: binary, OBIEE, an attribute of a student, but we do not know what this stands for
+- Business Direct Admit: binary, OBIEE, a direct admit to FSB as a first year
+- Combined Cacc and Masters: binary, OBIEE, combined degree student
+- Dean's List: binary, OBIEE, achieve dean's list status at least once
+- First Generation College Stdnt: binary, OBIEE, first generation student status
+- FSB Scholars: binary, OBIEE, FSB scholars program
+- Honors Program: binary, OBIEE, member of University honors program
+- President's list: binary, OBIEE, achieved president's list at least once
+- Study Abroud Courtesy Account: binary, OBIEE, do not know meaning
+- Transfer Work: binary, OBIEE, do not know exact meaning
+- Cum Laude: binary, OBIEE, graduated Cum Laude
+- Magna Cum Laude: binary, OBIEE, graduated Magna Cum Laude
+- Summa Cum Laude: binary, OBIEE, graduated Summa Cum Laude
+- University Honors: binary, OBIEE, graduated with University Honors
+- University Honors w/Distinction: binary, OBIEE, graduated with University Honors with Distinction
+- minor1: text, OBIEE, first listed minor
+- minor2: text, OBIEE, second listed minor
+- IPEDS.Race.Ethnicity: text, OBIEE, race/ethnicity
+- Gender: text, OBIEE, sex
+- GPA.Range: text, OBIEE, GPA within a .5 range
+- Term.Code: numberic, OBIEE, First four digits are the physcal year (beginning in July, e.g. July 2020 is FY 2021). Last two digits is the term (10=fall, 15=winter, 20=spring, 30=summer).
+- Year.x: text, derived, first four digits of Term.Code stored as a character variable
+- latin_honors: text, survey, latin honors designation
+- survey_city: text, survey, student reported city in which their job is located
+- survey_company: text, survey, student reported company in which they accepted a job
+- survey_deptfunc: text, survey, student reported job function
+- survey_gradprogram: text, survey, student reported graduate program they will be attending
+- survey_gradschool: text, survey, stuent reported graduate school they will be attending
+- survey_internfour: text, survey, student reported fourth internship they held during college
+- survey_internthree: text, survey, student reported third internship they held during college
+- survey_interntwo: text, survey, student reported second internship they held during college
+- survey_internone: text, survey, student reported first internship they held during college
+- Survey_internships: text, survey, Student reported number of internships they held during college
+- survey_offers: text, survey, student reported number of offers for full time employment received
+-  survey_plans: text, survey, student reported plans after graduation
+- survey_pref_field: text, survey, student reported whether working in preferred field
+- survey_pref_loc: text, survey, student reported whether working in preferred location
+- survey_salary: numeric, survey, student reported salary
+- survey_state: text, survey, student reported state in which job is located
 
 ## Read in the data
 
@@ -101,12 +101,14 @@ data=readRDS(file = "FSB_BI_Survey_2019_2021.rds")
 
 ## Data Exploration
 
-put in summaries and head
+We used the skimr package and the head function to summarize and explore the data.
 
 ```{r}
 skim(data)
 ```
-Key Takeaways:
+
+### Key Takeaways 1
+
 - Major and Minor are structured and clean with no values missing. There are no redundant major or minor listings, so these columns do not need further cleaning.
 - There are a small amount of double majors that need to be properly represented so 
 - The survey columns focusing on job placement and salary have ~50% of their values missing, indicating that they did not place. To simplify this in the future we will create a binary column to represent either being placed or not being placed.
@@ -115,7 +117,9 @@ Key Takeaways:
 ```{r}
 head(data)
 ```
-Key Takeaways:
+
+### Key Takeaways 2
+
 - The head of the data reveals there are many columns unnecessary for our analysis.
 - In our analysis we need the year, the majors, the post graduation plans to determine placement, and salary columns (nmajor, major1, major2, year.x, survey_plans, survey_salary, Combined Bacc and Masters)
 -Other columns can be dropped (BBRJ, Business Direct Admit, Dean's List, First Generation College Stdnt, FSB Scholars, Honor's Program, President's List, Study Abroad Courtesy Account, Transfer Work (Pre-Banner), Cum Laude, Magna Cum Laude, Summa Cum Laude, University Honors, UniversityHonors w/Distinction, minor1, minor2, IPEDS.Race.Ethnicity, Gender, GPA.Range, Term.Code, latin_honors, survey_city, survey_company, survey_deptfunc, survey_gradprogram, survey_gradschool, survey_internfour, survey_internone, survey_internships, survey_internthree, survey_interntwo, survey_offers, survey_pref_field, survey_pref_loc, survey_state)
