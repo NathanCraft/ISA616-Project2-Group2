@@ -1,0 +1,74 @@
+---
+title: "Student Success Dashboard Group 2"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+#runtime: shiny
+---
+
+```{r setup, include=FALSE,echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=FALSE,warning=FALSE)
+
+#package intialization
+if(require(pacman)==FALSE) install.packages("pacman")
+pacman::p_load(tidyverse, #for data manipulation
+               plotly, #for interactive plots
+               flexdashboard, #to make a dashboard
+               fontawesome, #for icons
+               DT #for better tables
+               )
+
+#read in data
+```
+
+# Student Success Project Overview {data-orientation=columns}
+
+Description of project
+
+# Salary Trends {data-orientation=columns}
+
+## Column {data-width=600}
+
+### Average FSB Graduate Salary Over Time 
+
+```{r,echo=FALSE}
+
+```
+
+### Average FSB Graduate Salary Over Time by Primary Major 
+
+```{r,echo=FALSE}
+
+```
+
+## Column {data-width=300}
+
+### Overall Change in Placement Rate
+
+```{r,echo=FALSE}
+
+```
+
+# Placement Trends {data-orientation=columns}
+
+## Column {data-width=600}
+
+### Average FSB Graduate Placement Rate Over Time
+
+```{r,echo=FALSE}
+
+```
+
+### Average FSB Graduate Salary Over Time by Primary Major 
+
+```{r}
+
+```
+
+## Column {data-width=300}
+
+### Overall Change in Placement Rate
+
+```{r,echo=FALSE}
+
+```
