@@ -71,8 +71,7 @@ avg_salary_data <- student_data %>%
 # Create the bar plot with ggplot2
 p <- ggplot(avg_salary_data, aes(x = year.x, y = avg_salary)) +
   geom_bar(stat = "identity", fill = "darkred") +
-  labs(title = "Average Salary in FSB Over Time",
-       x = "Year",
+  labs(x = "Year",
        y = "Average Salary") +
   theme_bw()
 
@@ -98,7 +97,12 @@ ggplotly(p)
 
 ## Column {data-width=300}
 
-### Overall Change in Placement Rate
+### Major with the Most Growth in Salary 
+
+```{r,echo=FALSE}
+
+```
+### Major with the Least Growth in Salary 
 
 ```{r,echo=FALSE}
 
@@ -116,21 +120,17 @@ bar_chart_data <- student_data %>%
   summarise(placement_rate = sum(placement) / n())
 
 # Bar Chart
-p = ggplot(bar_chart_data, aes(x = year.x, y = placement_rate, color = "darkred")) +
-  geom_bar(stat = "identity", position = "dodge", color = "black") +
-  geom_text(aes(label = scales::percent(placement_rate)),
-            position = position_dodge(width = 0.9),
-            vjust = -0.5) +
-  labs(title = "Placement Rate by Major and Year (Bar Chart)",
-       x = "Year",
+p = ggplot(bar_chart_data, aes(x = year.x, y = placement_rate)) +
+  geom_bar(stat = "identity", fill = "darkred") +
+  labs(x = "Year",
        y = "Placement Rate") +
   theme_bw()
 ggplotly(p)
 ```
 
-### Average FSB Graduate Salary Over Time by Primary Major 
+### Average FSB Graduate Placement Rate Over Time by Primary Major 
 
-```{r}
+```{r,echo=FALSE}
 time_series_data <- student_data %>%
   group_by(year.x, major1) %>%
   summarise(placement_rate = sum(placement) / n())
@@ -138,8 +138,7 @@ time_series_data <- student_data %>%
 # Time Series Chart
 p=ggplot(time_series_data, aes(x = year.x, y = placement_rate, color = major1)) +
   geom_line() +
-  labs(title = "Placement Rate Over Time by Major",
-       x = "Year",
+  labs(x = "Year",
        y = "Placement Rate") +
   theme_bw()
 ggplotly(p)
@@ -147,8 +146,48 @@ ggplotly(p)
 
 ## Column {data-width=300}
 
-### Overall Change in Placement Rate
+### Major with the Most Growth in Placement Rate
 
 ```{r,echo=FALSE}
+placement_growth = student_data %>%
+  group_by(major1, year.x) %>%
+  summarise(placement_rate = sum(placement) / n()) %>%
+  group_by(major1) %>%
+  summarise(max_increase = max(placement_rate) - min(placement_rate)) %>%
+  arrange(desc(max_increase)) %>%
+  slice(1)
 
+gauge_value <- round(placement_growth$max_increase, 3)*100
+
+gauge(gauge_value, min = 0, max = 100, symbol = '%', gaugeSectors(
+  success = c(80, 100), warning = c(40, 79), danger = c(0, 39)))
 ```
+
+### Major with the Least Growth in Placement Rate 
+```{r,echo=FALSE}
+p <- student_data %>%
+  group_by(major1, year.x) %>%
+  summarise(placement_rate = sum(placement) / n()) %>%
+  group_by(major1) %>%
+  summarise(
+    initial_placement_rate = first(placement_rate),
+    final_placement_rate = last(placement_rate),
+    max_increase = final_placement_rate - initial_placement_rate
+  ) %>%
+  arrange(max_increase) %>%
+  slice(1) %>%
+  ggplot(aes(x = "", y = max_increase, fill = major1)) +
+  geom_col(width = 0.7) +
+  geom_text(aes(label = scales::percent(max_increase)),
+            position = position_stack(vjust = 0.5)) +
+  labs(title = "Major with the Lowest Growth in Placement Rate",
+       x = NULL,
+       y = "Percentage Increase") +
+  theme_minimal() +
+  theme(legend.position = "none")
+# Convert ggplot object to a plotly object
+p <- ggplotly(p)
+p
+```
+
+
