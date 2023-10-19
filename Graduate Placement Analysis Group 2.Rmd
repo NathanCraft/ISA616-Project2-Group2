@@ -234,6 +234,11 @@ data$year.x = as.integer(data$year.x)
 - After cleaning our data and pruning down the variables we are using, the data appears to be ready for analysis.
 - The data was very clean already but the one thing left to fix was changing the year.x variable to be an integer instead of a string. This was performed in the chunk above.
 
+### Save Cleaned Data
+```{r}
+write.csv(data, "CleanedStudentSuccessData.csv", row.names=FALSE)
+```
+
 
 # Computing Environment
 
