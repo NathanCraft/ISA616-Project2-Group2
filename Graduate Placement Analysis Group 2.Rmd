@@ -156,6 +156,7 @@ names(data)[names(data) == "Summa Cum Laude"] <- "Summa_Cum_Laude"
 head(data)
 ```
 
+
 ### Creating and Removing Columns
 
 In this chunk we create a binary field to represent which graduates placed into a job. N/A values were considered to not have placed into a job. This is because for analyzing placement trends we do not need to consider any granularity besides whether or not they placed. Where they placed or what alternate plans they had were not important for addressing the pains this analysis is focused on.
@@ -205,6 +206,16 @@ data = subset(data, select = -survey_pref_loc)
 data = subset(data, select = -survey_state)
 data = subset(data, select = -survey_plans)
 ```
+
+### Removing Values With No Data
+```{r}
+majors_to_remove = c("Interdisciplinary Bus Managemt", "Management and Organizations", "General Business")
+
+data = data[!(data$major1 %in% majors_to_remove), ]
+
+```
+
+These majors have very few observations and do not have salary or placement data leading to issues when trying to summarize placement rate and salary by major.
 
 ## Re-evaluating the data
 
