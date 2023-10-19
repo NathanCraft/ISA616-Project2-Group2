@@ -5,7 +5,35 @@ output:
     orientation: rows
 #runtime: shiny
 ---
+<style>                    
 
+.navbar, [data-toggle=tab], .navbar-brand {
+
+  background-color: red!important;
+
+  border-color: black;
+
+  color: white!important;
+
+}
+
+ 
+
+.navbar .navbar-nav > li > a:hover, .navbar .navbar-nav > li > a:focus {
+
+  background-color: crimson!important;
+
+}
+
+ 
+
+.navbar .navbar-nav > li > a:active {
+
+  background-color: crimson!important;
+
+}
+
+</style>
 ```{r setup, include=FALSE,echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE,message=FALSE,warning=FALSE)
 
@@ -18,7 +46,7 @@ pacman::p_load(tidyverse, #for data manipulation
                DT #for better tables
                )
 
-#read in data
+student_data = read_csv("CleanedStudentSuccessData.csv")
 ```
 
 # Student Success Project Overview {data-orientation=columns}
@@ -32,13 +60,40 @@ Description of project
 ### Average FSB Graduate Salary Over Time 
 
 ```{r,echo=FALSE}
+library(tidyverse)  
+library(ggplot2)
+library(dplyr)
 
+avg_salary_data <- student_data %>%
+  group_by(year.x) %>%
+  summarise(avg_salary = mean(survey_salary, na.rm = TRUE))
+
+# Create the bar plot with ggplot2
+p <- ggplot(avg_salary_data, aes(x = year.x, y = avg_salary)) +
+  geom_bar(stat = "identity", fill = "darkred") +
+  labs(title = "Average Salary in FSB Over Time",
+       x = "Year",
+       y = "Average Salary") +
+  theme_bw()
+
+# Convert ggplot2 plot to plotly
+ggplotly(p)
 ```
 
 ### Average FSB Graduate Salary Over Time by Primary Major 
 
 ```{r,echo=FALSE}
+avg_salary_data <- student_data %>%
+  group_by(year.x, major1) %>%
+  summarise(avg_salary = mean(survey_salary, na.rm = TRUE))
 
+# Create the line plot
+p=ggplot(avg_salary_data, aes(x = year.x, y = avg_salary, color = major1)) +
+  geom_line() +
+  labs(x = "Year",
+       y = "Average Salary") +
+  theme_bw()
+ggplotly(p)
 ```
 
 ## Column {data-width=300}
@@ -56,13 +111,38 @@ Description of project
 ### Average FSB Graduate Placement Rate Over Time
 
 ```{r,echo=FALSE}
+bar_chart_data <- student_data %>%
+  group_by(year.x) %>%
+  summarise(placement_rate = sum(placement) / n())
 
+# Bar Chart
+p = ggplot(bar_chart_data, aes(x = year.x, y = placement_rate, color = "darkred")) +
+  geom_bar(stat = "identity", position = "dodge", color = "black") +
+  geom_text(aes(label = scales::percent(placement_rate)),
+            position = position_dodge(width = 0.9),
+            vjust = -0.5) +
+  labs(title = "Placement Rate by Major and Year (Bar Chart)",
+       x = "Year",
+       y = "Placement Rate") +
+  theme_bw()
+ggplotly(p)
 ```
 
 ### Average FSB Graduate Salary Over Time by Primary Major 
 
 ```{r}
+time_series_data <- student_data %>%
+  group_by(year.x, major1) %>%
+  summarise(placement_rate = sum(placement) / n())
 
+# Time Series Chart
+p=ggplot(time_series_data, aes(x = year.x, y = placement_rate, color = major1)) +
+  geom_line() +
+  labs(title = "Placement Rate Over Time by Major",
+       x = "Year",
+       y = "Placement Rate") +
+  theme_bw()
+ggplotly(p)
 ```
 
 ## Column {data-width=300}
