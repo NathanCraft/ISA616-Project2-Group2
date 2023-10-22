@@ -158,9 +158,12 @@ head(data)
 
 ### Creating and Removing Columns
 
-In this chunk we create a binary field to represent which graduates placed into a job. N/A values were considered to not have placed into a job. This is because for analyzing placement trends we do not need to consider any granularity besides whether or not they placed. Where they placed or what alternate plans they had were not important for addressing the pains this analysis is focused on.
+
+In this chunk we create a binary field to represent which graduates placed into a job. N/A values were considered to not have placed, but the "survey_plan" column will have all N/A values be imputed with "unknown" to exclude them when calculating placement rate in our analysis. For analyzing placement trends we do not need to consider any granularity besides whether or not they placed. Where they placed or what alternate plans they had were not important for addressing the pains this analysis is focused on.
+
 
 ```{r}
+data$survey_plans = replace(data$survey_plans, is.na(data$survey_plans), 'unknown')
 data$placement = ifelse(data$survey_plan == "accepted fulltime job", 1, 0)
 data$placement[is.na(data$placement)] <- 0
 ```
@@ -203,8 +206,17 @@ data = subset(data, select = -survey_offers)
 data = subset(data, select = -survey_pref_field)
 data = subset(data, select = -survey_pref_loc)
 data = subset(data, select = -survey_state)
-data = subset(data, select = -survey_plans)
 ```
+
+### Dropping Majors With Low Quality Data
+
+```{r}
+majors_to_remove <- c("Interdisciplinary Bus Managemt", "Management and Organizations", "General Business")
+
+data <- data[!(data$major1 %in% majors_to_remove), ]
+```
+
+There are a few major1 levels that have very few observations that lead to inaccurate conclusions when comparing the trends of every major, so we've decided to remove observations with these majors in the code chunk above.
 
 ## Re-evaluating the data
 
@@ -223,19 +235,12 @@ data$year.x = as.integer(data$year.x)
 - After cleaning our data and pruning down the variables we are using, the data appears to be ready for analysis.
 - The data was very clean already but the one thing left to fix was changing the year.x variable to be an integer instead of a string. This was performed in the chunk above.
 
-
-```{r}
-majors_to_remove <- c("Interdisciplinary Bus Managemt", "Management and Organizations", "General Business")
-
-data <- data[!(data$major1 %in% majors_to_remove), ]
-```
-
-
 ### Save Cleaned Data
 ```{r}
 write.csv(data, "CleanedStudentSuccessData.csv", row.names=FALSE)
 ```
 
+Exporting our cleaned data as a csv file to use in our dashboard.
 
 # Computing Environment
 

@@ -51,7 +51,7 @@ student_data = read_csv("CleanedStudentSuccessData.csv")
 
 # Student Success Project Overview {data-orientation=columns}
 
-Description of project
+Description of project [Seen on this page](#Average-FSB-Graduate-Salary-Over-Time)
 
 # Salary Trends {data-orientation=columns}
 
@@ -68,14 +68,13 @@ avg_salary_data <- student_data %>%
   group_by(year.x) %>%
   summarise(avg_salary = mean(survey_salary, na.rm = TRUE))
 
-# Create the bar plot with ggplot2
+# Bar plot
 p <- ggplot(avg_salary_data, aes(x = year.x, y = avg_salary)) +
   geom_bar(stat = "identity", fill = "darkred") +
   labs(x = "Year",
        y = "Average Salary") +
   theme_bw()
 
-# Convert ggplot2 plot to plotly
 ggplotly(p)
 ```
 
@@ -86,11 +85,12 @@ avg_salary_data <- student_data %>%
   group_by(year.x, major1) %>%
   summarise(avg_salary = mean(survey_salary, na.rm = TRUE))
 
-# Create the line plot
+# Time Series
 p=ggplot(avg_salary_data, aes(x = year.x, y = avg_salary, color = major1)) +
   geom_line() +
   labs(x = "Year",
-       y = "Average Salary") +
+       y = "Average Salary",
+       color = "Major") +
   theme_bw()
 ggplotly(p)
 ```
@@ -100,7 +100,27 @@ ggplotly(p)
 ### Major with the Most Growth in Salary 
 
 ```{r,echo=FALSE}
+salary_growth <- student_data %>%
+  group_by(major1, year.x) %>%
+  summarise(
+    min_salary = min(survey_salary),
+    max_salary = max(survey_salary),
+    growth_rate = ((max_salary - min_salary) / min_salary) * 100
+  ) %>%
+  ggplot(aes(x = factor("", levels = ""), y = growth_rate, fill = major1)) +
+  geom_boxplot() +
+  geom_text(aes(label = scales::percent(growth_rate)),
+            position = position_stack(vjust = 0.5)) +
+  labs(
+    x = NULL,
+    y = "Percentage Increase",
+    fill = "Major"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "top", legend.box = "horizontal", legend.margin = margin(0, 0, 0, 0))
 
+# Convert ggplot object to a plotly object
+ggplotly(salary_growth)
 ```
 ### Major with the Least Growth in Salary 
 
@@ -116,6 +136,7 @@ ggplotly(p)
 
 ```{r,echo=FALSE}
 bar_chart_data <- student_data %>%
+  filter(survey_plans != "unknown") %>% 
   group_by(year.x) %>%
   summarise(placement_rate = sum(placement) / n())
 
@@ -132,6 +153,7 @@ ggplotly(p)
 
 ```{r,echo=FALSE}
 time_series_data <- student_data %>%
+  filter(survey_plans != "unknown") %>% 
   group_by(year.x, major1) %>%
   summarise(placement_rate = sum(placement) / n())
 
@@ -139,7 +161,8 @@ time_series_data <- student_data %>%
 p=ggplot(time_series_data, aes(x = year.x, y = placement_rate, color = major1)) +
   geom_line() +
   labs(x = "Year",
-       y = "Placement Rate") +
+       y = "Placement Rate",
+       color = "Major") +
   theme_bw()
 ggplotly(p)
 ```
@@ -155,12 +178,20 @@ placement_growth = student_data %>%
   group_by(major1) %>%
   summarise(max_increase = max(placement_rate) - min(placement_rate)) %>%
   arrange(desc(max_increase)) %>%
-  slice(1)
+  slice(1) %>%
+  ggplot(aes(x = "", y = max_increase, fill = major1)) +
+  geom_col(width = 0.7) +
+  geom_text(aes(label = scales::percent(max_increase)),
+            position = position_stack(vjust = 0.5)) +
+  labs(
+       x = NULL,
+       y = "Percentage Increase",
+       color="Major") +
+  theme_minimal() +
+  theme(legend.position = "top", legend.box = "horizontal", legend.margin = margin(0, 0, 0, 0))
+# Convert ggplot object to a plotly object
+ggplotly(placement_growth)
 
-gauge_value <- round(placement_growth$max_increase, 3)*100
-
-gauge(gauge_value, min = 0, max = 100, symbol = '%', gaugeSectors(
-  success = c(80, 100), warning = c(40, 79), danger = c(0, 39)))
 ```
 
 ### Major with the Least Growth in Placement Rate 
@@ -180,14 +211,16 @@ p <- student_data %>%
   geom_col(width = 0.7) +
   geom_text(aes(label = scales::percent(max_increase)),
             position = position_stack(vjust = 0.5)) +
-  labs(title = "Major with the Lowest Growth in Placement Rate",
+  labs(
        x = NULL,
-       y = "Percentage Increase") +
+       y = "Percentage Decrease",
+       color="Major") +
   theme_minimal() +
-  theme(legend.position = "none")
+  theme(legend.position = "top", legend.box = "horizontal", legend.margin = margin(0, 0, 0, 0))
 # Convert ggplot object to a plotly object
-p <- ggplotly(p)
-p
+ggplotly(p)
+
+
 ```
 
 
