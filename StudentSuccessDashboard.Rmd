@@ -64,13 +64,44 @@ The main questions we are trying to answer from the data are: (1) What are the s
 
 When looking at the average salary of an FSB graduate throughout the years 2019-2021, one noticeable year was 2020. Of the three years, 2020 had the highest average starting salary (\$60,560) for FSB graduates. According to the NACE Salary Survey ([wpi.edu-2020](https://www.wpi.edu/sites/default/files/inline-image/Offices/Career-Development-Center/2020-nace-salary-survey-winter.pdf)), which shares starting salary projections for the 2020 new college graduates, they predicted an average salary of \$57,940 for Bachelor's Degree Graduates in Business. The starting salary for FSB graduates in 2020 was even above predictions by about \$2,600.
 
-**Major Salary and Placement Trends**
-
 -   Average salary from FSB graduates is consistent from 2019-2020
 
-Looking further into the average starting salary for FSB Graduates by their major, all majors except Business Analytics saw a salary increase from 2019 to 2020. Most majors peaked in 2020 and then saw a decline in starting salaries for 2021, with the exception of Information Systems, Business Analytics, and Human Capital Management & Leadership. For 2019, those who majored in Business Analytics had the highest average starting salary of \$71,000 and
+Making concrete conclusions about trends from only three years of data is difficult. Nonetheless, it appears that the starting salary of an FSB graduate remains relatively constant and falls within the range of \$56,000 to \$60,000, with an overall mean of $58,353. This is in line with industry trends and predictions, where the projected mean starting salary of business graduates was \$57,070 ([naceweb.org-2020-2021](https://www.naceweb.org/job-market/compensation/starting-salary-projections-positive-for-the-class-of-2021/)). It’s important to note that the averages in this time span may be impacted by the COVID-19 pandemic.
+
+**Salary Trends by Major**
+
+-   Business Analytic graduates and Entrepreneurship graduates are gradually closing the gap between average starting salary amount
+
+Looking further into the average starting salary for FSB Graduates by major, all majors except Business Analytics saw a salary increase from 2019 to 2020. In 2019, Business Analytics majors had the highest average starting salary (\$71,000), but by 2021 it’s average starting salary had decreased by 7%. On the contrary, Entrepreneurship majors had the lowest average starting salary (\$45,000), resulting in a salary gap of $26,000 – the largest across all majors and years. Entrepreneurship graduates have been making strides; there's been a 24% increased average starting salary from 2019 to 2021. 
+
+-   The majors with the top 5 highest starting salaries were the same each year
+
+Majors with highest salaries are Information Systems, Business Analytics, Finance, Business Economics, and Accountancy. Over the years, they have an average starting salary of $62,660.
+
+Majors with lower salaries are Entrepreneurship, Human Capital Management & Leadership, Management & Leadership, Marketing, and Supply Chain & Operations Management, which an average starting salary of $53,684.
+
+**Placement Trends**
+
+-   Placement rates for FSB as a whole were edging downwards from 2019-2021
+
+Illustrated in the “Average FSB Graduate Placement Rate Over Time” bar chart, average placement rate for FSB graduates decreased every year from 2019-2021. The drops were not very large and the overall average never went below 70%, but it demonstrates a concerning trend if it were to continue.
+
+-   7 out of 10 majors ended in 2021 with a lower placement rate than they started with in 2019
+
+The 10 included majors are Accountancy, Business Analytics, Business Economics, Entrepreneurship, Finance, Human Capital Mgmt & Leadership, Information Systems, Management and Leadership, Marketing, and Supply Chain & Operations Management. Of these, only Accountancy, Business Analytics, and Human Capital Management & Leadership saw an average increase in their placement rates as seen in the “Average FSB Graduate Placement Rate Over Time by Primary Major” time-series chart. The other majors saw decreases of varying size (ranging from .1% to 21%), but overall the majority of the majors seeing some sort of decrease in average placement rate falls in line with the expectation set by the decrease in average placement rates for FSB as a whole.
+
+
+-   Specialized management majors are outperforming the Management and Leadership majors
+
+Human Capital Management & Leadership saw the largest growth in placement rate of 55% displayed by the “Major with the Most Growth in Placement Rate” visual. When combined with the “Major with the Least Growth in Placement Rate” visual and the “Average FSB Graduate Placement Rate Over Time by Primary Major” time-series it paints the picture that specialized management majors like Human Capital and Supply Chain are doing much better than Management and Leadership. Management and Leadership saw the greatest decrease in placement rates and the time-series shows both of the other management majors seeing placement rates that were about 15% higher than Management and Leadership by 2021. With these trends in mind it seems there may be more value to students and the university to greater emphasize the more specialized management majors.
 
 **References**
+
+Koc, E., &amp; Kahn, J. (n.d.). Winter 2020 NACE salary survey - worcester polytechnic institute. (https://www.wpi.edu/sites/default/files/inline-image/Offices/Career-Development-Center/2020-nace-salary-survey-winter.pdf)
+
+National Association of Colleges and Employers. (2020). Starting salary projections positive for the class of 2021. naceweb. (https://www.naceweb.org/job-market/compensation/starting-salary-projections-positive-for-the-class-of-2021/) 
+
+
 
 # Salary Trends {data-orientation="columns"}
 
@@ -195,7 +226,7 @@ p = ggplot(bar_chart_data, aes(x = year.x, y = placement_rate)) +
 ggplotly(p)
 ```
 
-### Average FSB Graduate Placement Rate Over Time by Primary Major
+### FSB Graduate Placement Rate Over Time by Primary Major
 
 ```{r,echo=FALSE}
 time_series_data <- student_data %>%
