@@ -5,6 +5,8 @@ output:
     orientation: rows
 #runtime: shiny
 ---
+
+```{=html}
 <style>                    
 
 .navbar, [data-toggle=tab], .navbar-brand {
@@ -34,6 +36,7 @@ output:
 }
 
 </style>
+```
 ```{r setup, include=FALSE,echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE,message=FALSE,warning=FALSE)
 
@@ -49,15 +52,31 @@ pacman::p_load(tidyverse, #for data manipulation
 student_data = read_csv("CleanedStudentSuccessData.csv")
 ```
 
-# Student Success Project Overview {data-orientation=columns}
+# Project Overview {data-orientation="columns"}
 
-Description of project [Seen on this page](#Average-FSB-Graduate-Salary-Over-Time)
+**Research Questions**
 
-# Salary Trends {data-orientation=columns}
+The main questions we are trying to answer from the data are: (1) What are the starting salary trends for FSB graduates as a whole and for individual majors? (2) What are the placement trends for FSB graduates overall and for each FSB major?
 
-## Column {data-width=600}
+**FSB Starting Salary Trends**
 
-### Average FSB Graduate Salary Over Time 
+-   2020 had the highest average starting salary despite the pandemic
+
+When looking at the average salary of an FSB graduate throughout the years 2019-2021, one noticeable year was 2020. Of the three years, 2020 had the highest average starting salary (\$60,560) for FSB graduates. According to the NACE Salary Survey ([wpi.edu-2020](https://www.wpi.edu/sites/default/files/inline-image/Offices/Career-Development-Center/2020-nace-salary-survey-winter.pdf)), which shares starting salary projections for the 2020 new college graduates, they predicted an average salary of \$57,940 for Bachelor's Degree Graduates in Business. The starting salary for FSB graduates in 2020 was even above predictions by about \$2,600.
+
+**Major Salary and Placement Trends**
+
+-   Average salary from FSB graduates is consistent from 2019-2020
+
+Looking further into the average starting salary for FSB Graduates by their major, all majors except Business Analytics saw a salary increase from 2019 to 2020. Most majors peaked in 2020 and then saw a decline in starting salaries for 2021, with the exception of Information Systems, Business Analytics, and Human Capital Management & Leadership. For 2019, those who majored in Business Analytics had the highest average starting salary of \$71,000 and
+
+**References**
+
+# Salary Trends {data-orientation="columns"}
+
+## Column {data-width="600"}
+
+### Average FSB Graduate Salary Over Time
 
 ```{r,echo=FALSE}
 library(tidyverse)  
@@ -78,7 +97,7 @@ p <- ggplot(avg_salary_data, aes(x = year.x, y = avg_salary)) +
 ggplotly(p)
 ```
 
-### Average FSB Graduate Salary Over Time by Primary Major 
+### Average FSB Graduate Salary Over Time by Primary Major
 
 ```{r,echo=FALSE}
 avg_salary_data <- student_data %>%
@@ -95,20 +114,24 @@ p=ggplot(avg_salary_data, aes(x = year.x, y = avg_salary, color = major1)) +
 ggplotly(p)
 ```
 
-## Column {data-width=300}
+## Column {data-width="300"}
 
-### Major with the Most Growth in Salary 
+### Major with the Most Growth in Salary
 
 ```{r,echo=FALSE}
-salary_growth <- student_data %>%
+avg_salary_growth <- student_data %>%
   group_by(major1, year.x) %>%
-  summarise(
-    min_salary = min(survey_salary),
-    max_salary = max(survey_salary),
-    growth_rate = ((max_salary - min_salary) / min_salary) * 100
+  summarise(avg_salary = mean(survey_salary, na.rm=TRUE)) %>%
+    group_by(major1) %>% 
+    summarise(
+    first_avg_salary = first(avg_salary),
+    last_avg_salary = last(avg_salary),
+    growth_rate = ((last_avg_salary - first_avg_salary) / first_avg_salary)
   ) %>%
-  ggplot(aes(x = factor("", levels = ""), y = growth_rate, fill = major1)) +
-  geom_boxplot() +
+  arrange(desc(growth_rate)) %>%
+  slice(1) %>%
+  ggplot(aes(x = "", y = growth_rate, fill = major1)) +
+  geom_col(width = .7) +
   geom_text(aes(label = scales::percent(growth_rate)),
             position = position_stack(vjust = 0.5)) +
   labs(
@@ -119,18 +142,41 @@ salary_growth <- student_data %>%
   theme_minimal() +
   theme(legend.position = "top", legend.box = "horizontal", legend.margin = margin(0, 0, 0, 0))
 
-# Convert ggplot object to a plotly object
-ggplotly(salary_growth)
+ggplotly(avg_salary_growth)
 ```
-### Major with the Least Growth in Salary 
+
+### Major with the Least Growth in Salary
 
 ```{r,echo=FALSE}
+avg_salary_growth <- student_data %>%
+  group_by(major1, year.x) %>%
+  summarise(avg_salary = mean(survey_salary, na.rm=TRUE)) %>%
+    group_by(major1) %>% 
+    summarise(
+    first_avg_salary = first(avg_salary),
+    last_avg_salary = last(avg_salary),
+    growth_rate = ((last_avg_salary - first_avg_salary) / first_avg_salary)
+  ) %>%
+  arrange(growth_rate) %>%
+  slice(1) %>%
+  ggplot(aes(x = "", y = growth_rate, fill = major1)) +
+  geom_col(width = .7) +
+  geom_text(aes(label = scales::percent(growth_rate)),
+            position = position_stack(vjust = 0.5)) +
+  labs(
+    x = NULL,
+    y = "Percentage Decrease",
+    fill = "Major"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "top", legend.box = "horizontal", legend.margin = margin(0, 0, 0, 0))
 
+ggplotly(avg_salary_growth)
 ```
 
-# Placement Trends {data-orientation=columns}
+# Placement Trends {data-orientation="columns"}
 
-## Column {data-width=600}
+## Column {data-width="600"}
 
 ### Average FSB Graduate Placement Rate Over Time
 
@@ -149,7 +195,7 @@ p = ggplot(bar_chart_data, aes(x = year.x, y = placement_rate)) +
 ggplotly(p)
 ```
 
-### Average FSB Graduate Placement Rate Over Time by Primary Major 
+### Average FSB Graduate Placement Rate Over Time by Primary Major
 
 ```{r,echo=FALSE}
 time_series_data <- student_data %>%
@@ -167,12 +213,12 @@ p=ggplot(time_series_data, aes(x = year.x, y = placement_rate, color = major1)) 
 ggplotly(p)
 ```
 
-## Column {data-width=300}
+## Column {data-width="300"}
 
 ### Major with the Most Growth in Placement Rate
 
 ```{r,echo=FALSE}
-placement_growth = student_data %>%
+p = student_data %>%
   group_by(major1, year.x) %>%
   summarise(placement_rate = sum(placement) / n()) %>%
   group_by(major1) %>%
@@ -189,12 +235,15 @@ placement_growth = student_data %>%
        color="Major") +
   theme_minimal() +
   theme(legend.position = "top", legend.box = "horizontal", legend.margin = margin(0, 0, 0, 0))
-# Convert ggplot object to a plotly object
-ggplotly(placement_growth)
 
+p_plotly <- ggplotly(p)
+p_plotly <- p_plotly %>%
+  layout(legend = list(title = list(text = "Major")))
+p_plotly
 ```
 
-### Major with the Least Growth in Placement Rate 
+### Major with the Least Growth in Placement Rate
+
 ```{r,echo=FALSE}
 p <- student_data %>%
   group_by(major1, year.x) %>%
@@ -217,10 +266,9 @@ p <- student_data %>%
        color="Major") +
   theme_minimal() +
   theme(legend.position = "top", legend.box = "horizontal", legend.margin = margin(0, 0, 0, 0))
-# Convert ggplot object to a plotly object
-ggplotly(p)
 
-
+p_plotly <- ggplotly(p)
+p_plotly <- p_plotly %>%
+  layout(legend = list(title = list(text = "Major")))
+p_plotly
 ```
-
-
