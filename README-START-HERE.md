@@ -15,12 +15,17 @@ To eliminate these pains, we intend to pilot an FSB Placement Analysis where we 
 
 ## Deliverables
 
-1. Student Success Dashboard (StudentSuccessDashboard.html)
+1. Graduate Placement Analysis (Graduate Placement Analysis Group 2.Rmd)
+   - In this file we cleaned the data and prepared it for analysis and use in the dashboard files.
+   - This is the file to open and run first in RStudio in order to get the cleaned data. You will need to get the starting data set from outside of our repository.
+   - After you run this .Rmd file, the clean data set, "CleanedStudentSuccessData.csv", will show up in this repository.
+
+2. Student Success Dashboard (StudentSuccessDashboard.html)
    - This improves guiding students to an optimal path using the placement rates and average salary by each major. This allows advisors to know which majors are doing well, which ones are falling off, and how stable they are in terms of their trends.
    - The dashboard provides insight into the salaries students could expect to make in each major, but also gives reasonable expectations of being able to find a job with that major after graduating.
    - The dashboard provides a comparison point for the Farmer School of Business administrators when comparing to the market through means such as the National Association of Colleges and Employers salary survey.
    - The dashboard serves as a tool to help advisors understand the landscape and give better recommendations to students more efficiently. Additionally, they could prioritize students in majors that might need more attention for job placement.
-
+  
 ## Overview of the Repository
 
 The purpose of this repository is to have all our files related to the ISA 616 Student Success Project in one easily accessible place. To better understand the repository contents, below is a guide to all files (from most important to least) and an overview of what each contains.
@@ -32,10 +37,10 @@ StudentSuccessDashboard.html
 StudentSuccessDashboard.Rmd
 - A compilation of our documented code in R Markdown that is used for creating the Student Success Dashboard
 
-Graduate-Placement-Analysis.html
+Graduate-Placement-Analysis-Group-2.html
 - A knitted document that shows the data-cleaning process we used to achieve our final, tidy dataset
 
-Graduate Placement Analysis.Rmd
+Graduate Placement Analysis Group 2.Rmd
 - An R Markdown file that contains documented code used for data preprocessing, exploration, and cleaning
 
 FSB Placement Insights BVP Slide 1
